@@ -1,4 +1,4 @@
-#Events
+Events
 An event represents something that happened in the system.
 
 Every subsystem communicates using events.
@@ -70,30 +70,11 @@ A switch may generate:
 
 SWITCH_PRESSED ↓ SWITCH_HELD ↓ SWITCH_RELEASED
 
-SWITCH_REPEAT
-Generated repeatedly while a switch remains active.
+Or:
 
-Typical use cases:
+SWITCH_PRESSED ↓ SWITCH_HELD (1000 ms) ↓ SWITCH_HELD (2000 ms) ↓ SWITCH_HELD (3000 ms) ↓ SWITCH_RELEASED
 
-High score entry
-Menu navigation
-Service menus
-Volume control
-Value selection
-Properties:
-
-switch_id
-timestamp
-repeat_count
-Typical sequence:
-
-SWITCH_PRESSED ↓ 500 ms initial delay ↓ SWITCH_REPEAT ↓ SWITCH_REPEAT ↓ SWITCH_REPEAT ↓ SWITCH_RELEASED
-
-Default values:
-
-Initial delay: 500 ms
-Repeat interval: 100 ms
-Repeat behavior shall be configurable per switch.
+The number and timing of held events are configurable per switch type.
 
 System Events
 SYSTEM_START
