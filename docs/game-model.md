@@ -38,7 +38,7 @@ Properties:
 
 Represents the current game level.
 
-Levels may enable or disable missions, challenges, targets, groups and sequences.
+Levels may enable or disable missions, challenges and structures.
 
 Properties:
 
@@ -48,7 +48,7 @@ Properties:
 
 ## Mission
 
-A mission is a larger objective that may span multiple targets, groups or sequences.
+A mission is a larger objective that may span multiple structures.
 
 States:
 
@@ -82,47 +82,87 @@ Properties:
 - Challenge State
 - Challenge Progress
 
-## Target Types
+## Switches
 
-### Solo Target
+Switches are atomic input devices.
 
-A target that can be completed independently.
+Switches do not own gameplay relationships.
+
+A switch may participate in any number of gameplay structures.
+
+Examples:
+
+- Orbit Switch
+- Ramp Switch
+- Lane Switch
+- Target Switch
+- Pop Bumper Switch
+- Slingshot Switch
+
+## Structures
+
+Structures define gameplay relationships between switches.
+
+Examples:
+
+- Solo Targets
+- Groups
+- Sequences
+- Missions
+- Challenges
+
+A structure owns the relationship between switches.
+
+A switch may participate in multiple structures simultaneously.
+
+Example:
+
+Orbit Left Entry
+
+May participate in:
+
+- LEFT_ORBIT_SEQUENCE
+- RAMP_RETURN_SEQUENCE
+- UPPER_PLAYFIELD_GROUP
+- MISSION_ALPHA
+
+## Solo Target
+
+A structure consisting of a single switch.
 
 Properties:
 
-- Target ID
-- Target Name
+- Structure ID
+- Structure Name
 - Score Value
 - Repeatable
-- Completed
+- Completion State
 
 Rules:
 
 - A non-repeatable target can only be completed once.
 - Additional hits are ignored until a reset occurs.
 
-### Group Target
+## Group Target
 
-A collection of targets that must all be completed.
+A structure consisting of multiple switches.
 
 Order does not matter.
 
 Properties:
 
-- Group ID
-- Group Name
-- Member Targets
+- Structure ID
+- Structure Name
+- Member Switches
 - Completion State
 
 Rules:
 
-- Any member target may be completed in any order.
-- A group is completed when all member targets are completed.
+- Any member switch may be activated in any order.
+- A group is completed when all member switches have been activated.
 - Completion generates a GROUP_COMPLETED event.
 
 Example:
-
-Targets:
 
 A
 B
@@ -138,26 +178,26 @@ Result:
 
 GROUP_COMPLETED
 
-### Sequence Target
+## Sequence Target
 
-A collection of targets that must be completed in a specific order.
+A structure consisting of multiple switches that must be activated in a specific order.
 
 Properties:
 
-- Sequence ID
-- Sequence Name
-- Ordered Targets
+- Structure ID
+- Structure Name
+- Ordered Switches
 - Current Position
 - Completion State
 
 Rules:
 
-- The next expected target must be activated.
-- Any unexpected target immediately resets the sequence.
-- Re-triggering a previously completed sequence target immediately resets the sequence.
+- The next expected switch must be activated.
+- Any unexpected switch immediately resets the sequence.
+- Re-triggering a previously completed sequence switch immediately resets the sequence.
 - Completion generates a SEQUENCE_COMPLETED event.
 
-Example Sequence:
+Example:
 
 A → B → C
 
@@ -199,11 +239,19 @@ Result:
 
 SEQUENCE_RESET
 
-A practical example is a ramp where the ball rolls back before reaching the final switch.
+Example:
+
+Ramp Entry
+↓
+Orbit Left Entry
+↓
+Orbit Left Exit
+
+A switch may simultaneously participate in other sequences, groups, missions or challenges.
 
 ## Reset Conditions
 
-Targets, groups and sequences can be reset by:
+Structures can be reset by:
 
 - New Ball
 - New Player
@@ -218,7 +266,7 @@ The applicable reset conditions are configurable.
 
 ## Effects
 
-Successful completion of targets, groups and sequences may trigger:
+Successful completion of structures may trigger:
 
 - Score Changes
 - Audio Effects
@@ -230,7 +278,7 @@ Successful completion of targets, groups and sequences may trigger:
 
 ## Derived Events
 
-The Game Model may generate higher-level events based on player progress.
+The Game Model may generate higher-level events.
 
 Examples:
 
@@ -240,4 +288,4 @@ Examples:
 - CHALLENGE_COMPLETED
 - LEVEL_COMPLETED
 
-These events can be consumed by the Rule Engine in the same way as physical switch events.
+These events can be consumed by the RuleEngine in the same way as physical switch events.
