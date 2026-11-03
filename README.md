@@ -1,5 +1,5 @@
 # PB_RB
-A complet pinball system including hardware based of a Raspberry Pi 4B 8Gb
+A complete pinball system including hardware based of a Raspberry Pi 4B 8Gb
 
 Targets
 The system will evaluate all events based on switches in the machine
