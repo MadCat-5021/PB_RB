@@ -25,7 +25,7 @@ Ignored States:
 - CHALLENGE_ACTIVE
 
 Notes:
-- Adds additional players before the first ball is launched
+- Adds additional players before the first ball of the first player is drained
 - Starts a game when sufficient credits are available
 - May be used to confirm selections in menus
 
@@ -93,7 +93,7 @@ Functions:
 Allowed States:
 - SERVICE_MENU
 Actions:
-- ADMIN_ON → Allow Coil Power
+- ADMIN_ON → Enable Coil Power
 - ADMIN_OFF → Disable Coil Power
 Notes:
 - Not accessible to players
