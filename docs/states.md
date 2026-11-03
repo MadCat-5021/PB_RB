@@ -40,10 +40,11 @@ The machine is waiting for a player.
 Examples:
 - Attract video
 - Lighting effects
-- Idle audio
+- Intense audio
 
 Possible Transitions:
 - START_GAME
+- ACTIVE
 
 ## GAME_START
 Prepare a new game.
