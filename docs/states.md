@@ -9,6 +9,30 @@ Allowed Actions:
 - Display initialization
 - Audio initialization
 
+## PASSIVE
+Idle mode
+The machine is waiting on input
+Examples:
+- Slides
+- slow light effects
+- almost no sound
+
+Possible Transitions:
+- ACTIVE
+- ATTRACT
+
+## ACTIVE
+Attentive mode
+The machine is activated by either buttons or credits and waiting on input
+Examples:
+- Invitations to play
+- Flashy light effects
+- Alluring sounds
+
+Possible Transitions:
+- ATTRACT
+- GAME_ACTIVE
+
 ## ATTRACT
 Idle mode.
 The machine is waiting for a player.
