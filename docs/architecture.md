@@ -32,3 +32,14 @@ InputScanner>InputQeue>RuleEngine>AudioQeue>DisplayQeue>ArdinoQeue>Managers
 Arduino
   Tasks:
   Arranging lights, lightshows
+Design Philosophy
+The system is event-driven.
+Hardware inputs generate events.
+Events are evaluated by the Rule Engine.
+The Rule Engine never directly controls hardware.
+The Rule Engine generates commands for specialized managers:
+AudioManager
+DisplayManager
+ArduinoManager
+Managers execute commands asynchronously.
+Communication between subsystems uses queues.
