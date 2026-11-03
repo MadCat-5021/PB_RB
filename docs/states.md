@@ -39,7 +39,7 @@ Examples:
 Possible Transitions:
 - PLAYING
 
-## PLAYING
+## GAME_ACTIVE
 Normal gameplay.
 Examples:
 - Score targets
@@ -56,7 +56,7 @@ Possible Transitions:
 A mission is currently active.
 
 Possible Transitions:
-- PLAYING
+- GAME_ACTIVE
 - BALL_END
 - TILT
 
@@ -64,7 +64,7 @@ Possible Transitions:
 A challenge is currently active.
 
 Possible Transitions:
-- PLAYING
+- GAME_ACTIVE
 - BALL_END
 - TILT
 
