@@ -98,6 +98,21 @@ The Raspberry Pi controls the main power relay directly.
 
 This relay acts as the primary coil safety mechanism.
 
+## Flipper Coils
+
+Flipper coils use dual windings:
+
+- Power winding
+- Hold winding
+
+An EOS (End Of Stroke) switch disconnects the power winding when the flipper reaches its end position.
+
+The hold winding remains energized while the flipper button is held.
+
+This reduces power consumption and coil heating.
+
+Flipper activation is handled directly by the Raspberry Pi without RuleEngine involvement.
+
 ## Arduino Giga
 
 Responsibilities:
