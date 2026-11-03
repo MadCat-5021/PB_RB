@@ -31,7 +31,8 @@ Examples:
 
 Possible Transitions:
 - ATTRACT
-- GAME_ACTIVE
+- GAME_START
+- SERVICE_MENU
 
 ## ATTRACT
 Idle mode.
