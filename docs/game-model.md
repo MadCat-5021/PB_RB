@@ -1,4 +1,5 @@
-Score
+#Score
+
 Levels
 Missions
 Challenges
