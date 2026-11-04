@@ -112,11 +112,12 @@ Multiplier = 1
 ## Mission Examples
 
 ### MISSION_1
--Requirements:
--- LEFT_ORBIT_SEQUENCE
--Completion:
--- MISSION_COMPLETED
--- MISSION_STARTED(MISSION_2)
+Requirements:
+- LEFT_ORBIT_SEQUENCE
+
+Completion:
+- MISSION_COMPLETED
+- MISSION_STARTED(MISSION_2)
 
 ### MISSION_2
 Requirements:
