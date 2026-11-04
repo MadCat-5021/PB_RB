@@ -1,0 +1,57 @@
+# Groups
+
+## Doel
+Groups zijn verzamelingen van targets waarbij de volgorde niet belangrijk is.
+
+## Eigenaarschap
+Een Group bezit:
+- Targets
+Targets bezitten geen Groups.
+
+## Activatie
+Een Group wordt actief zodra deze voor gameplay beschikbaar is.
+
+## Voltooiing
+Een Group is voltooid wanneer alle targets geraakt zijn.
+Generate:
+- GROUP_COMPLETED
+
+## Reset
+Na voltooiing kan een Group:
+- Opnieuw starten
+- Uitgeschakeld worden
+- Gereset worden door een event
+
+## Voorbeeld
+TOP_LANES_GROUP
+Targets:
+- TOP_LANE_A
+- TOP_LANE_B
+- TOP_LANE_C
+Geldig:
+A
+B
+C
+Result:
+GROUP_COMPLETED
+Geldig:
+C
+A
+B
+Result:
+GROUP_COMPLETED
+Geldig:
+B
+C
+A
+Result:
+GROUP_COMPLETED
+
+## Reuse
+Een target mag onderdeel zijn van meerdere Groups.
+Voorbeeld:
+TOP_LANE_A
+Kan gebruikt worden in:
+- TOP_LANES_GROUP
+- SKILLSHOT_GROUP
+- MISSION_ALPHA_GROUP
