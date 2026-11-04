@@ -122,15 +122,14 @@ Completion:
 ### MISSION_2
 Requirements:
 - RAMP_RIGHT
+
 Completion:
 - MISSION_COMPLETED
 - MISSION_STARTED(MISSION_3)
 
 ## Final Mission
-
 Na voltooiing van de laatste missie:
 
 Generate:
-
 - MISSION_COMPLETED
 - GAME_COMPLETED
