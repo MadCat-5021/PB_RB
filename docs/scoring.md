@@ -89,9 +89,6 @@ Bonus = Bonus + (Bonus x Bonus Multipier
 ## Ball Bonus
 
 ## End Of Ball
-
-## Extra Ball
-
-## Shoot again
+When the ball drains and no extra ball or shoot again was rewarded
 
 ## Game Completed
