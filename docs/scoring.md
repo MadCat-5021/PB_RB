@@ -92,4 +92,6 @@ Bonus = Bonus + (Bonus x Bonus Multipier
 
 ## Extra Ball
 
+## Shoot again
+
 ## Game Completed
