@@ -40,15 +40,15 @@ Hits:
 LEFT_ORBIT
 Combo Count = 1
 Awarded Score:
-1000
+1000 * bonus Multiplier
 LEFT_ORBIT within 5 seconds
 Combo Count = 2
 Awarded Score:
-2000
+2000 * bonus Multiplier
 LEFT_ORBIT within 5 seconds
 Combo Count = 3
 Awarded Score:
-3000
+3000 * bonus Multiplier
 
 ## Sequence Combo Example
 Sequence:
