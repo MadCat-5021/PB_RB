@@ -77,23 +77,23 @@ CHALLENGE_ACTIVE
 MISSION_ACTIVE
 Mission voortgang blijft behouden.
 
-## Mission Multiplier
-Bij het voltooien van meerdere missies tijdens dezelfde bal wordt de Mission Multiplier verhoogd.
-Multiplier Levels:
+## Bonus Multiplier
+Bij het voltooien van meerdere missies tijdens dezelfde bal wordt de Bonus Multiplier verhoogd.
+Bonus Levels:
 1>2>3>5>8>10
 Na level 10 blijft de multiplier op 10.
 Generate:
-- MISSION_MULTIPLIER_CHANGED
+- BONUS_MULTIPLIER_CHANGED
 
 ## Multiplier Reset
 Bij:
 - BALL_DRAINED
-Wordt de Mission Multiplier teruggezet naar:
+Wordt de Bonus Multiplier teruggezet naar:
 1
 Generate:
-- MISSION_MULTIPLIER_CHANGED
+- BONUS_MULTIPLIER_CHANGED
 
-## Multiplier Example
+## Bonus Example
 Start Ball:
 Multiplier = 1
 MISSION_1_COMPLETED
