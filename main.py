@@ -4,8 +4,10 @@ from core.events import (
     SEQUENCE_RESET,
     GROUP_COMPLETED
 )
-from gameplay.groups import Group
 from gameplay.sequences import Sequence
+from gameplay.groups import Group
+from content.groups import GROUPS
+from content.sequences import SEQUENCES
 from input.input_manager import InputManager
 
 def on_sequence_completed(event_type, data):
@@ -42,16 +44,20 @@ def main():
         GROUP_COMPLETED,
         on_group_completed
     )
-    Sequence(
-        name="TEST_SEQUENCE",
-        targets=["A", "B", "C"],
-        event_bus=bus
-    )
-    Group(
-        name="TEST_GROUP",
-        targets=["D", "E", "F", "G"],
-        event_bus=bus
-    )
+    for sequence in SEQUENCES:
+        Sequence(
+            name=sequence["name"],
+            targets=sequence["targets"],
+            event_bus=bus
+        )
+
+    for group in GROUPS:
+        Group(
+            name=group["name"],
+            targets=group["targets"],
+            event_bus=bus
+        )
+
     input_manager = InputManager(bus)
 
     print("PB_RB Test Environment")
