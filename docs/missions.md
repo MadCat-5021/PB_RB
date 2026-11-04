@@ -80,7 +80,7 @@ Mission voortgang blijft behouden.
 ## Mission Multiplier
 Bij het voltooien van meerdere missies tijdens dezelfde bal wordt de Mission Multiplier verhoogd.
 Multiplier Levels:
-1>2>3>58>10
+1>2>3>5>8>10
 Na level 10 blijft de multiplier op 10.
 Generate:
 - MISSION_MULTIPLIER_CHANGED
