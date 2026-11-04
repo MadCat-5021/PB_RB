@@ -49,7 +49,7 @@ def main():
     )
     Group(
         name="TEST_GROUP",
-        targets=["D", "E", "F"],
+        targets=["D", "E", "F", "G"],
         event_bus=bus
     )
     input_manager = InputManager(bus)
