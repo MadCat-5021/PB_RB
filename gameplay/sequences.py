@@ -17,14 +17,22 @@ class Sequence:
         )
 
     def on_switch_pressed(self, event_type, data):
+
         switch = data["switch"]
 
         expected_switch = self.targets[self.current_index]
 
+        # Switch hoort niet bij deze sequence
+        if switch not in self.targets:
+            return
+
+        # Correcte volgende stap
         if switch == expected_switch:
+
             self.current_index += 1
 
             if self.current_index == len(self.targets):
+
                 self.event_bus.publish(
                     SEQUENCE_COMPLETED,
                     {
@@ -34,12 +42,14 @@ class Sequence:
 
                 self.current_index = 0
 
-        else:
-            self.current_index = 0
+            return
 
-            self.event_bus.publish(
-                SEQUENCE_RESET,
-                {
-                    "sequence": self.name
-                }
-            )
+        # Switch hoort wel bij sequence maar is fout
+        self.current_index = 0
+
+        self.event_bus.publish(
+            SEQUENCE_RESET,
+            {
+                "sequence": self.name
+            }
+        )
