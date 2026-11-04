@@ -58,11 +58,11 @@ Base Score:
 Completion 1
 Combo Count = 1
 Awarded Score:
-5000
+5000 * bonus Multiplier
 Completion 2 within 5 seconds
 Combo Count = 2
 Awarded Score:
-10000
+10000 * bonus Multiplier
 
 ## Combo Reset
 Een combo wordt gereset wanneer:
@@ -71,11 +71,12 @@ Na reset:
 Combo Count = 1
 
 ## Multiplier Interaction
-Combo Scoring wordt berekend vóór eventuele Mission Multiplier toepassing.
+Combo Scoring wordt direct toegepast op de score
 Als de combo afkomstig is van een Target of Sequence:
-Mission Multiplier wordt niet toegepast.
-Als de combo afkomstig is van een Group:
-Mission Multiplier wordt wel toegepast volgens de Group Scoring regels.## Mission Multiplier
+- Counter word toegepast
+- Bonus Multiplier wordt toegepast.
+
+## Bonus Multiplier
 1
 2
 3
