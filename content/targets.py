@@ -185,7 +185,7 @@ TARGETS = [
     },
     {
         "name": "GATE_2",
-        "display_name": "Kwalification",
+        "display_name": "Qualification",
         "score": 200,
         "combo_enabled": False,
         "combo_window": 0,
@@ -225,7 +225,7 @@ TARGETS = [
     {
         "name": "ORBIT_LEFT_FRONT",
         "display_name": "Curva",
-        "score": 250,
+        "score": 20,
         "combo_enabled": False,
         "combo_window": 0,
         "audio": None,
@@ -238,7 +238,7 @@ TARGETS = [
     {
         "name": "ORBIT_LEFT_REAR",
         "display_name": "Grande",
-        "score": 250,
+        "score": 40,
         "combo_enabled": False,
         "combo_window": 0,
         "audio": None,
