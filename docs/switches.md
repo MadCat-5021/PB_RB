@@ -8,7 +8,9 @@ Gameplay relationships are owned by structures within the Game Model.
 - Switch ID
 - Name
 - Category
-- Enabled
+- State
+- Score
+- Type
 
 ## Categories
 
