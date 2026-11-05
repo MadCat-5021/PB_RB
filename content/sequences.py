@@ -4,6 +4,6 @@ SEQUENCES = [
     {
         "name": "RAMP_RIGHT",
         "display_name": "Right ramp",
-        "targets": ["LEFT_RAMP", "ORBIT_LEFT_REAR", "ORBIT_LEFT_FRONT"]
+        "targets": ["RAMP_RIGHT", "ORBIT_LEFT_REAR", "ORBIT_LEFT_FRONT"]
     }
 ]

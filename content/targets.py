@@ -170,5 +170,65 @@ TARGETS = [
         "audio": None,
         "video": None,
         "animation": None
+    },
+    {
+        "name": "ORBIT_LEFT_FRONT",
+        "display_name": "Curva",
+        "score": 250,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None
+    },
+    {
+        "name": "ORBIT_LEFT_REAR",
+        "display_name": "Grande",
+        "score": 250,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None
+    },
+    {
+        "name": "ORBIT_RIGHT_REAR",
+        "display_name": "Die ene in Madrid",
+        "score": 250,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None
+    },
+    {
+        "name": "ORBIT_RIGHT_REAR",
+        "display_name": "Die ene in Madrid",
+        "score": 250,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None
+    },
+    {
+        "name": "RAMP_LEFT",
+        "display_name": "COTA Tower",
+        "score": 300,
+        "combo_enabled": True,
+        "combo_window": 20,
+        "audio": None,
+        "video": None,
+        "animation": None
+    },
+    {
+        "name": "RAMP_RIGHT",
+        "display_name": "Eau Rouge",
+        "score": 300,
+        "combo_enabled": True,
+        "combo_window": 3,
+        "audio": None,
+        "video": None,
+        "animation": None
     }
 ]
