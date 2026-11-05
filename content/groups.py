@@ -3,6 +3,6 @@
 GROUPS = [
     {
         "name": "TEST_GROUP",
-        "targets": ["D", "E", "F", "G"]
+        "targets": ["INLANE_LEFT", "EINLANE_RIGHT", "OUTLANE_LEFT", "OUTLANE_RIGHT"]
     }
 ]
