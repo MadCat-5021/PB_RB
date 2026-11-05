@@ -9,6 +9,7 @@ from gameplay.groups import Group
 from content.groups import GROUPS
 from content.sequences import SEQUENCES
 from input.input_manager import InputManager
+from content.validator import validate
 
 def on_sequence_completed(event_type, data):
     print()
@@ -27,7 +28,7 @@ def on_sequence_reset(event_type, data):
     print()
 
 def main():
-
+    validate()
     bus = EventBus()
 
     bus.subscribe(
