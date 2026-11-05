@@ -2,14 +2,14 @@
 
 GROUPS = [
     {
-        "name": "LANES",
-        "display_name": "Lanes",
-        "targets": ["INLANE_LEFT", "INLANE_RIGHT", "OUTLANE_LEFT", "OUTLANE_RIGHT"]
-    },
-    {
         "name": "DRIVER",
         "display_name": "Threading the needle",
         "targets": ["ESCAPE_LANE", "INLANE_LEFT", "INLANE_RIGHT", "OUTLANE_LEFT", "OUTLANE_RIGHT"]
+    },
+    {
+        "name": "LANES",
+        "display_name": "Lanes",
+        "targets": ["INLANE_LEFT", "INLANE_RIGHT", "OUTLANE_LEFT", "OUTLANE_RIGHT"]
     },
     {
         "name": "GATES",
