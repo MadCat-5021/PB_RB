@@ -4,6 +4,7 @@ from core.events import (
     SEQUENCE_RESET,
     GROUP_COMPLETED
 )
+from gameplay.target_manager import TargetManager
 from gameplay.sequences import Sequence
 from gameplay.groups import Group
 from content.groups import GROUPS
@@ -30,6 +31,7 @@ def on_sequence_reset(event_type, data):
 def main():
     validate()
     bus = EventBus()
+    target_manager = TargetManager(bus)
 
     bus.subscribe(
         SEQUENCE_COMPLETED,
@@ -45,6 +47,7 @@ def main():
         GROUP_COMPLETED,
         on_group_completed
     )
+
     for sequence in SEQUENCES:
         Sequence(
             name=sequence["name"],
@@ -56,17 +59,17 @@ def main():
         Group(
             name=group["name"],
             targets=group["targets"],
-            event_bus=bus
+            event_bus=bus,
+            target_manager=target_manager
         )
 
     input_manager = InputManager(bus)
 
     print("PB_RB Test Environment")
-    print("Enter switches: A, B or C")
+    print("Enter switches")
     print()
 
     input_manager.run()
-
 
 if __name__ == "__main__":
     main()

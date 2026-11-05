@@ -7,6 +7,11 @@ GROUPS = [
         "targets": ["INLANE_LEFT", "INLANE_RIGHT", "OUTLANE_LEFT", "OUTLANE_RIGHT"]
     },
     {
+        "name": "DRIVER",
+        "display_name": "Threading the needle",
+        "targets": ["ESCAPE_LANE", "INLANE_LEFT", "INLANE_RIGHT", "OUTLANE_LEFT", "OUTLANE_RIGHT"]
+    },
+    {
         "name": "GATES",
         "display_name": "Events",
         "targets": ["GATE_1", "GATE_2", "GATE_3", "GATE_4"]

@@ -9,7 +9,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "OUTLANE_RIGHT",
@@ -19,7 +22,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "INLANE_LEFT",
@@ -29,7 +35,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "INLANE_RIGHT",
@@ -39,17 +48,23 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
-        "name": "ESCAPELANE",
+        "name": "ESCAPE_LANE",
         "display_name": "Taking a shortcut",
         "score": 100,
         "combo_enabled": False,
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "DROP_1",
@@ -59,7 +74,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "DROP_2",
@@ -69,7 +87,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "DROP_3",
@@ -79,7 +100,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "DROP_4",
@@ -89,7 +113,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "TIRE_1",
@@ -99,7 +126,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "TIRE_2",
@@ -109,7 +139,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "TIRE_3",
@@ -119,7 +152,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "TIRE_4",
@@ -129,7 +165,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "GATE_1",
@@ -139,7 +178,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "GATE_2",
@@ -149,7 +191,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "GATE_3",
@@ -159,7 +204,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "GATE_4",
@@ -169,7 +217,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "ORBIT_LEFT_FRONT",
@@ -179,7 +230,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "ORBIT_LEFT_REAR",
@@ -189,7 +243,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "ORBIT_RIGHT_REAR",
@@ -199,7 +256,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "ORBIT_RIGHT_REAR",
@@ -209,7 +269,10 @@ TARGETS = [
         "combo_window": 0,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "RAMP_LEFT",
@@ -219,7 +282,10 @@ TARGETS = [
         "combo_window": 20,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     },
     {
         "name": "RAMP_RIGHT",
@@ -229,6 +295,9 @@ TARGETS = [
         "combo_window": 3,
         "audio": None,
         "video": None,
-        "animation": None
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     }
 ]
