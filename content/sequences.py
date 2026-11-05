@@ -2,7 +2,8 @@
 
 SEQUENCES = [
     {
-        "name": "TEST_SEQUENCE",
-        "targets": ["A", "B", "C"]
+        "name": "RAMP_RIGHT",
+        "display_name": "Right ramp",
+        "targets": ["LEFT_RAMP", "ORBIT_LEFT_REAR", "ORBIT_LEFT_FRONT"]
     }
 ]
