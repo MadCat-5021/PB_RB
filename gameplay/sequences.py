@@ -6,7 +6,6 @@ from core.events import (
     SEQUENCE_RESET
 )
 
-
 class Sequence:
     def __init__(
         self,
