@@ -1,0 +1,20 @@
+#content/states.py
+
+MACHINE_STATES = {
+  "BOOT",
+  "PASSIVE",
+  "ACTIVE",
+  "ATTRACT",
+  "SERVICE_MODE",
+  "HIGSCORE",
+  "GAME"
+}
+
+ALLOWED_TRANSITIONS = {
+  "BOOT":{"ATTRACT"},
+  "PASSIVE":{"ATTRACT","ACTIVE"},
+  "ACTIVE":{"PASSIVE","SERVICE_MODE","GAME"},
+  "ATTRACT":{"ACTIVE","GAME"},
+  "SERVICE_MODE":{"ACTIVE"},
+  "GAME":{"HIGHSCORES"}
+}
