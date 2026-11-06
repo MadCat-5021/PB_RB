@@ -1,4 +1,4 @@
-#content/states.py
+# content/states.py
 
 MACHINE_STATES = {
   "BOOT",
