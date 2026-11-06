@@ -12,6 +12,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_test": 0,
         "hit_count_game": 0,
 		"hit_last_time": None,
         "hit_type": "LATCHING"
