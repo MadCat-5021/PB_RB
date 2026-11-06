@@ -13,6 +13,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -27,6 +28,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -41,6 +43,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -55,6 +58,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -69,6 +73,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -83,6 +88,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -97,6 +103,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -111,6 +118,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -125,6 +133,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -139,6 +148,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -153,6 +163,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -167,6 +178,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -181,6 +193,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -195,6 +208,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -209,6 +223,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -223,6 +238,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -237,6 +253,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -251,6 +268,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -265,6 +283,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -279,6 +298,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -293,6 +313,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -307,6 +328,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -321,6 +343,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -335,6 +358,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -349,6 +373,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -363,6 +388,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -377,6 +403,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -391,6 +418,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
      {
@@ -405,6 +433,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     },
     {
@@ -419,6 +448,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -433,6 +463,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -447,6 +478,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -461,6 +493,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -475,6 +508,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -489,6 +523,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -503,6 +538,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -517,6 +553,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -531,6 +568,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -545,6 +583,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -559,6 +598,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
    {
@@ -573,6 +613,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -587,6 +628,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -601,6 +643,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "LATCHING"
     },
     {
@@ -615,6 +658,7 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_count_game": 0,
+		"hit_last_time": None,
         "hit_type": "INSTANT"
     }
 ]
