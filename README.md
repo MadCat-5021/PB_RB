@@ -14,15 +14,15 @@ The system will evaluate all events based on switches in the machine
 
 # Hardware
 Planned Hardware
-  1x    Raspberry Pi 4B 8Gb
-  1x    Arduino Giga 1R WiFi
-  3x    CD74HC4067 multiplexer
-  48+   Switches (Tactile, micro, leaf, induction, custom built)
-  3x    12V Hesschen Coils
-  3x    Pop bumper assemblies
-  2x    Flipper assemblies
-  2x    Slingshot assemblies
-  150x  WS2811/WS2812 LED RGB
+-  1x    Raspberry Pi 4B 8Gb
+- 1x    Arduino Giga 1R WiFi
+- 3x    CD74HC4067 multiplexer
+- 48+   Switches (Tactile, micro, leaf, induction, custom built)
+- 3x    12V Hesschen Coils
+- 3x    Pop bumper assemblies
+- 2x    Flipper assemblies
+- 2x    Slingshot assemblies
+- 150x  WS2811/WS2812 LED RGB
 
 # Software architecture
   - Input scanner
