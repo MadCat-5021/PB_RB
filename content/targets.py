@@ -274,7 +274,7 @@ TARGETS = [
     {
         "name": "ORBIT_LEFT_REAR",
         "display_name": "Grande",
-        "score": 40,
+        "score": 20,
         "combo_enabled": False,
         "combo_window": 0,
         "audio": None,
@@ -288,7 +288,7 @@ TARGETS = [
     },
     {
         "name": "ORBIT_RIGHT_REAR",
-        "display_name": "Die ene in Madrid",
+        "display_name": "La Monumental",
         "score": 250,
         "combo_enabled": False,
         "combo_window": 0,
