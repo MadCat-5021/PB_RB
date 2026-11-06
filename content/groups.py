@@ -2,13 +2,13 @@
 
 GROUPS = [
     {
-        "name": "DRIVER",
+        "name": "LANES_ALL",
         "display_name": "Threading the needle",
         "score": 2500,
         "targets": ["ESCAPE_LANE", "INLANE_LEFT", "INLANE_RIGHT", "OUTLANE_LEFT", "OUTLANE_RIGHT"]
     },
     {
-        "name": "LANES",
+        "name": "LANES_SOME",
         "display_name": "Lanes",
         "score": 2000,
         "targets": ["INLANE_LEFT", "INLANE_RIGHT", "OUTLANE_LEFT", "OUTLANE_RIGHT"]
