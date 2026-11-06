@@ -11,6 +11,7 @@ from content.groups import GROUPS
 from content.sequences import SEQUENCES
 from input.input_manager import InputManager
 from content.validator import validate
+from gameplay.score_manager import ScoreManager
 
 def on_sequence_completed(event_type, data):
     print()
@@ -32,7 +33,7 @@ def main():
     validate()
     bus = EventBus()
     target_manager = TargetManager(bus)
-
+    score_manager = ScoreManager(bus)
     bus.subscribe(
         SEQUENCE_COMPLETED,
         on_sequence_completed
