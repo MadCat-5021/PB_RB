@@ -3,14 +3,14 @@ A complete pinball system including hardware based of a Raspberry Pi 4B 8Gb
 
 # Targets
 The system will evaluate all events based on switches in the machine
-  ## Play sounds
+  - Play sounds
   - Drive a display
-  -- Background(s)
-  -- Foregoundmask(s)
-  -- Images
-  -- GIF's
-  -- Video's
-  -- JSON communication over USB with a Arduino Giga
+  - Background(s)
+  - Foregoundmask(s)
+  - Images
+  - GIF's
+  - Video's
+  - JSON communication over USB with a Arduino Giga
 
 #Hardware
 Planned Hardware
