@@ -2,7 +2,7 @@
 
 from core.events import SWITCH_PRESSED
 from content.targets import TARGETS
-
+from time import time
 
 class TargetManager:
     def __init__(self, event_bus):
@@ -22,6 +22,7 @@ class TargetManager:
             return
         target = self.targets[target_name]
         target["hit_count"] += 1
+        target["hit_last_time"] = time()
         if target["hit_type"] == "LATCHING":
             target["hit_state"] = True
         print(
