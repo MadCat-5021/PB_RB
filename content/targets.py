@@ -12,6 +12,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -25,6 +26,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -38,6 +40,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -51,6 +54,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -64,6 +68,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -77,6 +82,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -90,6 +96,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -103,6 +110,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -116,6 +124,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -129,6 +138,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -142,6 +152,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "INSTANT"
     },
     {
@@ -155,6 +166,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "INSTANT"
     },
     {
@@ -168,6 +180,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "INSTANT"
     },
     {
@@ -181,6 +194,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "INSTANT"
     },
     {
@@ -194,6 +208,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "INSTANT"
     },
     {
@@ -207,6 +222,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -220,279 +236,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "OUTLANE_LEFT",
-        "display_name": "In the gravel",
-        "score": 50,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "OUTLANE_RIGHT",
-        "display_name": "Wall of champions",
-        "score": 50,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "PLUNGER",
-        "display_name": "Ready for launch",
-        "score": 0,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "POP_1",
-        "display_name": "Skiddit",
-        "score": 70,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "INSTANT"
-    },
-    {
-        "name": "POP_2",
-        "display_name": "Skiddit",
-        "score": 70,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "INSTANT"
-    },
-    {
-        "name": "POP_3",
-        "display_name": "Skiddit",
-        "score": 70,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "INSTANT"
-    },
-    {
-        "name": "SLINGSHOT_LEFT",
-        "display_name": "Rev it!",
-        "score": 100,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "INSTANT"
-    },
-    {
-        "name": "SLINGSHOT_RIGHT",
-        "display_name": "Rev it!",
-        "score": 100,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "INSTANT"
-    },
-     {
-        "name": "SPINNER",
-        "display_name": "Round and round they go",
-        "score": 2,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "INSTANT"
-    },
-    {
-        "name": "SWITCHBACK_ENTRY",
-        "display_name": "Under the bridge",
-        "score": 0,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "SWITCHBACK_EXIT",
-        "display_name": "Under the bridge",
-        "score": 0,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TIRE_1",
-        "display_name": "Front left",
-        "score": 150,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TIRE_2",
-        "display_name": "Rear left",
-        "score": 150,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TIRE_3",
-        "display_name": "Front right",
-        "score": 150,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TIRE_4",
-        "display_name": "Rear right",
-        "score": 150,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TROUGH_POS_1",
-        "display_name": "Ball for supply",
-        "score": 0,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TROUGH_POS_2",
-        "display_name": "Ball for supply",
-        "score": 0,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TROUGH_POS_3",
-        "display_name": "Ball for supply",
-        "score": 0,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TROUGH_POS_4",
-        "display_name": "Ball for supply",
-        "score": 0,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-    {
-        "name": "TROUGH_POS_5",
-        "display_name": "Ball for supply",
-        "score": 0,
-        "combo_enabled": False,
-        "combo_window": 0,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
-        "hit_type": "LATCHING"
-    },
-   {
-        "name": "TUNNEL_EXIT",
-        "display_name": "Hear the roar",
-        "score": 500,
-        "combo_enabled": True,
-        "combo_window": 30,
-        "audio": None,
-        "video": None,
-        "animation": None,
-        "hit_state": False,
-        "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -506,6 +250,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -519,6 +264,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -532,12 +278,13 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
-        "name": "ORBIT_RIGHT_REAR",
-        "display_name": "Die ene in Madrid",
-        "score": 250,
+        "name": "OUTLANE_LEFT",
+        "display_name": "In the gravel",
+        "score": 50,
         "combo_enabled": False,
         "combo_window": 0,
         "audio": None,
@@ -545,6 +292,287 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "OUTLANE_RIGHT",
+        "display_name": "Wall of champions",
+        "score": 50,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "PLUNGER",
+        "display_name": "Ready for launch",
+        "score": 0,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "POP_1",
+        "display_name": "Skiddit",
+        "score": 70,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "INSTANT"
+    },
+    {
+        "name": "POP_2",
+        "display_name": "Skiddit",
+        "score": 70,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "INSTANT"
+    },
+    {
+        "name": "POP_3",
+        "display_name": "Skiddit",
+        "score": 70,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "INSTANT"
+    },
+    {
+        "name": "SLINGSHOT_LEFT",
+        "display_name": "Rev it!",
+        "score": 100,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "INSTANT"
+    },
+    {
+        "name": "SLINGSHOT_RIGHT",
+        "display_name": "Rev it!",
+        "score": 100,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "INSTANT"
+    },
+     {
+        "name": "SPINNER",
+        "display_name": "Round and round they go",
+        "score": 2,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "INSTANT"
+    },
+    {
+        "name": "SWITCHBACK_ENTRY",
+        "display_name": "Under the bridge",
+        "score": 0,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "SWITCHBACK_EXIT",
+        "display_name": "Under the bridge",
+        "score": 0,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TIRE_1",
+        "display_name": "Front left",
+        "score": 150,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TIRE_2",
+        "display_name": "Rear left",
+        "score": 150,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TIRE_3",
+        "display_name": "Front right",
+        "score": 150,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TIRE_4",
+        "display_name": "Rear right",
+        "score": 150,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TROUGH_POS_1",
+        "display_name": "Ball for supply",
+        "score": 0,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TROUGH_POS_2",
+        "display_name": "Ball for supply",
+        "score": 0,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TROUGH_POS_3",
+        "display_name": "Ball for supply",
+        "score": 0,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TROUGH_POS_4",
+        "display_name": "Ball for supply",
+        "score": 0,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+    {
+        "name": "TROUGH_POS_5",
+        "display_name": "Ball for supply",
+        "score": 0,
+        "combo_enabled": False,
+        "combo_window": 0,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
+        "hit_type": "LATCHING"
+    },
+   {
+        "name": "TUNNEL_EXIT",
+        "display_name": "Hear the roar",
+        "score": 500,
+        "combo_enabled": True,
+        "combo_window": 30,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -558,6 +586,7 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
@@ -571,19 +600,21 @@ TARGETS = [
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
+        "hit_count_game": 0,
         "hit_type": "LATCHING"
     },
     {
         "name": "U_TURN",
         "display_name": "Leus hairpin",
         "score": 300,
-        "combo_enabled": True,
+        "combo_enabled": False,
         "combo_window": 3,
         "audio": None,
         "video": None,
         "animation": None,
         "hit_state": False,
         "hit_count": 0,
-        "hit_type": "LATCHING"
+        "hit_count_game": 0,
+        "hit_type": "INSTANT"
     }
 ]
