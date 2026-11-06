@@ -16,8 +16,8 @@ class Sequence:
 
     def on_switch_pressed(self, event_type, data):
         print(
-        f"SEQUENCE {self.name}: "
-        f"received {switch}"
+            f"SEQUENCE {self.name}: "
+            f"received {switch}"
         )
         switch = data["switch"]
         expected_switch = self.targets[self.current_index]
