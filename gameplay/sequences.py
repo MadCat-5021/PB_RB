@@ -29,13 +29,12 @@ class Sequence:
         data
     ):
         switch = data["switch"]
-        print(
-            f"SEQUENCE {self.name}: "
-            f"received {switch}"
-        )
         # Sequence nog niet gestart
         if self.current_index == 0:
             if switch == self.targets[0]:
+                print(
+                    f"SEQUENCE {self.name}: STARTED"
+                )
                 self.current_index = 1
                 # Sequence van slechts 1 target
                 if len(self.targets) == 1:
