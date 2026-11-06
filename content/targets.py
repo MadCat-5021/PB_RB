@@ -416,5 +416,18 @@ TARGETS = [
         "hit_state": False,
         "hit_count": 0,
         "hit_type": "LATCHING"
+    },
+    {
+        "name": "U_TURN",
+        "display_name": "Leus hairpin",
+        "score": 300,
+        "combo_enabled": True,
+        "combo_window": 3,
+        "audio": None,
+        "video": None,
+        "animation": None,
+        "hit_state": False,
+        "hit_count": 0,
+        "hit_type": "LATCHING"
     }
 ]
