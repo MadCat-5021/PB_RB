@@ -38,17 +38,14 @@ def main():
         SEQUENCE_COMPLETED,
         on_sequence_completed
     )
-
     bus.subscribe(
         SEQUENCE_RESET,
         on_sequence_reset
     )
-
     bus.subscribe(
         GROUP_COMPLETED,
         on_group_completed
     )
-
     for sequence in SEQUENCES:
         Sequence(
             name=sequence["name"],
@@ -63,14 +60,10 @@ def main():
             event_bus=bus,
             target_manager=target_manager
         )
-
     input_manager = InputManager(bus)
-
     print("PB_RB Test Environment")
     print("Enter switches")
     print()
-
     input_manager.run()
-
 if __name__ == "__main__":
     main()
