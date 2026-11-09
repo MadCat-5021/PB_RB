@@ -1,4 +1,4 @@
-# gameplay/game.py
+# gameplay/game_manager.py
 
 from core.event_bus import EventBus
 from core.state_manager import StateManager
