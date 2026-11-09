@@ -13,10 +13,10 @@ from content.groups import GROUPS
 from content.sequences import SEQUENCES
 from time import sleep
 
-
 class Game:
     def __init__(self):
         self.event_bus = EventBus()
+        self.settings = SettingsManager()
         self.state_manager = StateManager(
             self.event_bus,
             self.settings,
