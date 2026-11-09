@@ -6,7 +6,7 @@ MACHINE_STATES = {
   "ACTIVE",
   "ATTRACT",
   "SERVICE_MODE",
-  "HIGSCORE",
+  "HIGHSCORE",
   "GAME"
 }
 
