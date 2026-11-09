@@ -5,7 +5,6 @@ from core.events import (
     GROUP_COMPLETED
 )
 
-
 class Group:
     def __init__(
         self,
@@ -25,6 +24,9 @@ class Group:
 
     def on_switch_pressed(self, event_type, data):
         if self.is_completed():
+            print(
+                f"GROUP {self.name}: COMPLETED"
+            )
             self.event_bus.publish(
                 GROUP_COMPLETED,
                 {

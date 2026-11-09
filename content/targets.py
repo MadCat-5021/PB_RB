@@ -289,7 +289,7 @@ TARGETS = [
     {
         "name": "ORBIT_RIGHT_REAR",
         "display_name": "La Monumental",
-        "score": 250,
+        "score": 20,
         "combo_enabled": False,
         "combo_window": 0,
         "audio": None,
@@ -619,7 +619,7 @@ TARGETS = [
     {
         "name": "RAMP_LEFT",
         "display_name": "COTA Tower",
-        "score": 300,
+        "score": 0,
         "combo_enabled": True,
         "combo_window": 20,
         "audio": None,
@@ -634,7 +634,7 @@ TARGETS = [
     {
         "name": "RAMP_RIGHT",
         "display_name": "Eau Rouge",
-        "score": 300,
+        "score": 0,
         "combo_enabled": True,
         "combo_window": 3,
         "audio": None,

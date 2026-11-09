@@ -37,6 +37,9 @@ class Sequence:
                 self.current_index = 1
                 # Sequence van slechts 1 target
                 if len(self.targets) == 1:
+                    print(
+                        f"SEQUENCE {self.name}: COMPLETED"
+                    )
                     self.event_bus.publish(
                         SEQUENCE_COMPLETED,
                         {
@@ -52,6 +55,9 @@ class Sequence:
             self.current_index += 1
             # Sequence voltooid
             if self.current_index == len(self.targets):
+                print(
+                    f"SEQUENCE {self.name}: COMPLETED"
+                )
                 self.event_bus.publish(
                     SEQUENCE_COMPLETED,
                     {
