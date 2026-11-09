@@ -1,0 +1,3 @@
+core/state_managerReplace.py # ToDo: ATTRACT_TIMEOUT with
+# ATTRACT_COMPLETED event from
+# DisplayManager video playback.

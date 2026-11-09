@@ -21,25 +21,19 @@ class StateManager:
         settings,
         initial_state="BOOT"
     ):
-
         if initial_state not in MACHINE_STATES:
             raise ValueError(
                 f"Invalid state: "
                 f"{initial_state}"
             )
-
         self.event_bus = event_bus
         self.settings = settings
-
         self.state = initial_state
-
         self.last_activity = time()
-
         self.event_bus.subscribe(
             SWITCH_PRESSED,
             self.on_switch_pressed
         )
-
         print(
             f"STATE: {self.state}"
         )
@@ -49,9 +43,7 @@ class StateManager:
         event_type,
         data
     ):
-
         self.register_activity()
-
         if self.state in {
             "PASSIVE",
             "ATTRACT",
@@ -101,32 +93,25 @@ class StateManager:
         self,
         new_state
     ):
-
         if new_state == self.state:
             return True
-
         if not self.can_transition(
             new_state
         ):
-
             print(
                 f"INVALID TRANSITION: "
                 f"{self.state} -> "
                 f"{new_state}"
             )
-
             return False
-
         old_state = self.state
-
         self.state = new_state
-
+        self.last_activity = time()
         print(
             f"STATE: "
             f"{old_state} -> "
             f"{new_state}"
         )
-
         self.event_bus.publish(
             STATE_CHANGED,
             {
@@ -134,20 +119,12 @@ class StateManager:
                 "new_state": new_state
             }
         )
-
         return True
 
     def check_timeouts(
         self
     ):
-
-        if (
-            self.state == "ACTIVE"
-            and time() - self.last_activity
-            >= self.settings.get(
-                "ACTIVE_TIMEOUT"
-            )
-        ):
-            self.set_state(
-                "PASSIVE"
-            )
+        if (self.state == "ACTIVE" and time() - self.last_activity >= self.settings.get("ACTIVE_TIMEOUT")):self.set_state("PASSIVE")
+        elif (self.state == "PASSIVE" and time() - self.last_activity >= (self.settings.get("PASSIVE_TIMEOUT"))):self.set_state("ATTRACT")
+        # TODO: Replace ATTRACT_TIMEOUT with ATTRACT_COMPLETED event from DisplayManager video playback.
+        elif (self.state == "ATTRACT" and time() - self.last_activity >= (self.settings.get("ATTRACT_TIMEOUT"))):self.set_state("ACTIVE")
