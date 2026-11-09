@@ -22,43 +22,31 @@ class Game:
             self.settings,
             "BOOT"
         )
-
         self.boot()
-
     def boot(self):
-
         print(
             "BOOT: Loading settings..."
         )
-
         self.settings = SettingsManager()
-
         print(
             "BOOT: Validating content..."
         )
-
         validate()
-
         print(
             "BOOT: Initializing managers..."
         )
-
         self.target_manager = TargetManager(
             self.event_bus
         )
-
         self.score_manager = ScoreManager(
             self.event_bus
         )
-
         self.input_manager = InputManager(
             self.event_bus
         )
-
         print(
             "BOOT: Loading groups..."
         )
-
         self.groups = [
             Group(
                 group["name"],
@@ -68,11 +56,9 @@ class Game:
             )
             for group in GROUPS
         ]
-
         print(
             "BOOT: Loading sequences..."
         )
-
         self.sequences = [
             Sequence(
                 sequence["name"],
@@ -81,15 +67,11 @@ class Game:
             )
             for sequence in SEQUENCES
         ]
-
         print(
             "BOOT: Complete"
         )
-
-        self.state_manager.set_state(
-            "ACTIVE"
-        )
-
+    if self.settings.get("BOOT_SERVICE_MODE"):self.state_manager.set_state("SERVICE_MODE") else: self.state_manager.set_state("ACTIVE")
+        
     def run(self):
 
         self.input_manager.run()
