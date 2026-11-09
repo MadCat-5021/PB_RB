@@ -123,5 +123,6 @@ class StateManager:
     ):
         if (self.state == "ACTIVE" and time() - self.last_activity >= self.settings.get("ACTIVE_TIMEOUT")):self.set_state("PASSIVE")
         elif (self.state == "PASSIVE" and time() - self.last_activity >= (self.settings.get("PASSIVE_TIMEOUT"))):self.set_state("ATTRACT")
+        elif (self.state == "HIGHSCORE" and time() - self.last_activity >= (self.settings.get("PASSIVE_HIGHSCORE"))):self.set_state("ACTIVE")
         # TODO: Replace ATTRACT_TIMEOUT with ATTRACT_COMPLETED event from DisplayManager video playback.
         elif (self.state == "ATTRACT" and time() - self.last_activity >= (self.settings.get("ATTRACT_TIMEOUT"))):self.set_state("ACTIVE")
