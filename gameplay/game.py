@@ -3,9 +3,14 @@
 from time import sleep
 
 from core.event_bus import EventBus
+from core.events import (
+    CREDIT_ADDED,
+    START_REQUESTED)
+
 from core.state_manager import StateManager
 from core.settings_manager import SettingsManager
 
+from gameplay.control_manager import ControlManager
 from gameplay.target_manager import TargetManager
 from gameplay.score_manager import ScoreManager
 from gameplay.groups import Group
@@ -23,28 +28,30 @@ class Game:
     def __init__(self):
         self.event_bus = EventBus()
         self.settings = SettingsManager()
-
         self.state_manager = StateManager(
             self.event_bus,
             self.settings,
             "BOOT")
-
+        self.event_bus.subscribe(
+            CREDIT_ADDED,
+            self.on_credit_added)
+        self.event_bus.subscribe(
+            START_REQUESTED,
+            self.on_start_requested)
         self.boot()
 
     def boot(self):
         print("BOOT: Validating content...")
         validate()
-
         print("BOOT: Initializing managers...")
+        self.control_manager = ControlManager(
+            self.event_bus)
         self.target_manager = TargetManager(
             self.event_bus)
-
         self.score_manager = ScoreManager(
             self.event_bus)
-
         self.input_manager = InputManager(
             self.event_bus)
-
         print("BOOT: Loading groups...")
         self.groups = [
             Group(
@@ -53,7 +60,6 @@ class Game:
                 self.event_bus,
                 self.target_manager)
             for group in GROUPS]
-
         print("BOOT: Loading sequences...")
         self.sequences = [
             Sequence(
@@ -61,9 +67,7 @@ class Game:
                 sequence["targets"],
                 self.event_bus)
             for sequence in SEQUENCES]
-
         print("BOOT: Checking service mode...")
-
         if self.settings.get(
             "BOOT_SERVICE_MODE"):
             self.state_manager.set_state(
@@ -71,6 +75,25 @@ class Game:
         else:
             self.state_manager.set_state(
                 "ACTIVE")
+
+    def on_credit_added(
+        self,
+        event_type,
+        data):
+        print(
+            f"CREDITS: "
+            f"{data['credits']}")
+
+    def on_start_requested(
+        self,
+        event_type,
+        data):
+        print(
+            f"CREDITS: "
+            f"{data['credits']}")
+
+        print(
+            "GAME START REQUEST")
 
     def run(self):
         self.input_manager.run()
