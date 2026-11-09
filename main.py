@@ -12,6 +12,7 @@ from content.sequences import SEQUENCES
 from input.input_manager import InputManager
 from content.validator import validate
 from gameplay.score_manager import ScoreManager
+from core.state_manager import StateManager
 
 def on_sequence_completed(event_type, data):
     print()
