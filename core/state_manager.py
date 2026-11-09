@@ -44,7 +44,8 @@ class StateManager:
         if self.state in {
             "PASSIVE",
             "ATTRACT",
-            "HIGHSCORE"
+            "HIGHSCORE",
+            "SERVICE_MODE"
         }:
             self.set_state(
                 "ACTIVE"

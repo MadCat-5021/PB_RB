@@ -1,11 +1,11 @@
 # content/settings.py
 
 FACTORY_DEFAULTS = {
-    "ATTRACT_TIMOUT": 10,
+    "ATTRACT_TIMEOUT": 10,
     "ACTIVE_TIMEOUT": 10,
     "PASSIVE_TIMEOUT": 10,
     "HIGHSCORE_TIMEOUT": 30,
     "BALLS_PER_GAME": 3,
     "FREEPLAY": False,
-    "BOOT_SERVICE_MODE": True
+    "BOOT_SERVICE_MODE": False
 }
