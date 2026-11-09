@@ -32,18 +32,7 @@ class ControlManager:
                     "credits":
                     self.credits
                 })
-
         elif switch == "START_BUTTON":
-
-            if self.credits <= 0:
-
-                print(
-                    "START DENIED: NO CREDITS")
-
-                return
-
-            self.credits -= 1
-
             self.event_bus.publish(
                 START_REQUESTED,
                 {

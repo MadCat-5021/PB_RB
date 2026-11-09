@@ -32,9 +32,9 @@ class Game:
             self.event_bus,
             self.settings,
             "BOOT")
-        self.event_bus.subscribe(
-            CREDIT_ADDED,
-            self.on_credit_added)
+        self.players = 0
+        self.ball_launched = False
+        self.game_active = False
         self.event_bus.subscribe(
             START_REQUESTED,
             self.on_start_requested)
@@ -76,28 +76,51 @@ class Game:
             self.state_manager.set_state(
                 "ACTIVE")
 
-    def on_credit_added(
-        self,
-        event_type,
-        data):
-        print(
-            f"CREDITS: "
-            f"{data['credits']}")
-
     def on_start_requested(
         self,
         event_type,
         data):
+        credits = self.control_manager.get_credits()
+        freeplay = self.settings.get(
+            "FREEPLAY")
+        if not self.game_active:
+            if (
+                not freeplay
+                and credits <= 0
+            ):
+                print("START DENIED: NO CREDITS")
+                return
+            self.game_active = True
+            self.players = 1
+            self.ball_launched = False
+            if not freeplay:
+                self.control_manager.credits -= 1
+            print("GAME STARTED")
+            print(
+                f"PLAYERS: {self.players}")
+            self.state_manager.set_state(
+                "GAME")
+            return
+        if self.ball_launched:
+            print("ADD PLAYER DENIED: BALL IN PLAY")
+            return
+        if self.players >= 4:
+            print("ADD PLAYER DENIED: MAX PLAYERS")
+            return
+        if (
+            not freeplay
+            and credits <= 0
+        ):
+            print("ADD PLAYER DENIED: NO CREDITS")
+            return
+        if not freeplay:
+            self.control_manager.credits -= 1
+        self.players += 1
         print(
-            f"CREDITS: "
-            f"{data['credits']}")
-
-        print(
-            "GAME START REQUEST")
+            f"PLAYER {self.players} ADDED")
 
     def run(self):
         self.input_manager.run()
-
         while True:
             self.state_manager.check_timeouts()
             sleep(0.1)
