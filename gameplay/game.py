@@ -1,4 +1,4 @@
-# gameplay/game_manager.py
+# gameplay/game.py
 
 from core.event_bus import EventBus
 from core.state_manager import StateManager
@@ -24,5 +24,5 @@ class Game:
             self.event_bus
         )
 
-  def run(self):
-        self.input_manager.run()
+    def run(self):
+            self.input_manager.run()
