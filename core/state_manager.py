@@ -1,17 +1,14 @@
 # core/state_manager.py
 
 from time import time
-
 from core.events import (
     SWITCH_PRESSED,
     STATE_CHANGED
 )
-
 from content.states import (
     MACHINE_STATES,
     ALLOWED_TRANSITIONS
 )
-
 
 class StateManager:
 
