@@ -114,6 +114,7 @@ class Game:
         self.input_manager.run()
         while True:
             self.state_manager.check_timeouts()
+            self.check_game_start()
             sleep(0.1)
 
     def check_game_start(self):
