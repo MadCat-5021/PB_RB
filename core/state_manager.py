@@ -47,9 +47,7 @@ class StateManager:
             "HIGHSCORE",
             "SERVICE_MODE"
         }:
-            self.set_state(
-                "ACTIVE"
-            )
+            self.set_state("ACTIVE")
 
     def register_activity(
         self

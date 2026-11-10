@@ -70,6 +70,7 @@ class Game:
         self,
         event_type,
         data):
+        print("START REQUEST RECEIVED")
         credits = self.control_manager.get_credits()
         freeplay = self.settings.get("FREEPLAY")
         if not self.game_active:

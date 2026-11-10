@@ -24,6 +24,7 @@ class ControlManager:
         event_type,
         data):
         switch = data["switch"]
+        print(f"CONTROL: {switch}")
         if switch == "CREDIT_BUTTON":
             self.credits += 1
             self.event_bus.publish(
