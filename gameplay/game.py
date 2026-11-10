@@ -2,9 +2,7 @@
 
 from time import sleep, time
 from core.event_bus import EventBus
-from core.events import (
-    START_REQUESTED,
-    BALL_SUPPLY)
+from core.events import (START_REQUESTED,GAME_LAUNCH_REQUESTED,BALL_SUPPLY)
 from core.state_manager import StateManager
 from core.settings_manager import SettingsManager
 from gameplay.control_manager import ControlManager
@@ -28,9 +26,8 @@ class Game:
         self.players = 0
         self.ball_launched = False
         self.game_active = False
-        self.event_bus.subscribe(
-            START_REQUESTED,
-            self.on_start_requested)
+        self.event_bus.subscribe(GAME_LAUNCH_REQUESTED,self.on_game_launch_requested)
+        self.event_bus.subscribe(START_REQUESTED,self.on_start_requested)
         self.boot()
 
     def boot(self):
@@ -66,6 +63,16 @@ class Game:
         else:
             self.state_manager.set_state("ACTIVE")
 
+    def on_game_launch_requested(
+        self,
+        event_type,
+        data):
+        if not self.game_active:
+            return
+        if self.ball_launched:
+            return
+        self.supply_ball()
+        
     def on_start_requested(
         self,
         event_type,
@@ -116,6 +123,11 @@ class Game:
             return
         if (time() - self.game_started_at < self.settings.get("GAME_START_TIMEOUT")):
             return
+        self.supply_ball()
+
+    def supply_ball(self):
         print("BALL SUPPLY")
-        self.event_bus.publish(BALL_SUPPLY,{})
+        self.event_bus.publish(
+            BALL_SUPPLY,
+            {})
         self.ball_launched = True

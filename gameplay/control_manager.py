@@ -3,8 +3,8 @@
 from core.events import (
     SWITCH_PRESSED,
     CREDIT_ADDED,
-    START_REQUESTED)
-
+    START_REQUESTED,
+    GAME_LAUNCH_REQUESTED)
 
 class ControlManager:
 
@@ -41,5 +41,9 @@ class ControlManager:
                     self.credits
                 })
             print("START_REQUESTED PUBLISHED")
+        elif switch in {"LEFT_FLIPPER_BUTTON","RIGHT_FLIPPER_BUTTON"}:
+            self.event_bus.publish(
+                GAME_LAUNCH_REQUESTED)
+
     def get_credits(self):
         return self.credits
