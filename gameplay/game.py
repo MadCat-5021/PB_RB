@@ -26,6 +26,7 @@ class Game:
         self.players = 0
         self.ball_launched = False
         self.game_active = False
+        self.game_started_at = 0
         self.event_bus.subscribe(GAME_LAUNCH_REQUESTED,self.on_game_launch_requested)
         self.event_bus.subscribe(START_REQUESTED,self.on_start_requested)
         self.boot()
@@ -78,6 +79,7 @@ class Game:
         event_type,
         data):
         print("START REQUEST RECEIVED")
+        self.game_started_at = time()
         credits = self.control_manager.get_credits()
         freeplay = self.settings.get("FREEPLAY")
         if not self.game_active:
@@ -87,6 +89,7 @@ class Game:
             self.game_active = True
             self.players = 1
             self.ball_launched = False
+            self.game_started_at = time()
             if not freeplay:
                 self.control_manager.credits -= 1
             print("GAME STARTED")
