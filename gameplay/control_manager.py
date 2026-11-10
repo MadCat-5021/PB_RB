@@ -40,6 +40,6 @@ class ControlManager:
                     "credits":
                     self.credits
                 })
-
+            print("START_REQUESTED PUBLISHED")
     def get_credits(self):
         return self.credits
