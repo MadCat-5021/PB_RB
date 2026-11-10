@@ -41,7 +41,7 @@ class ControlManager:
                     self.credits
                 })
             print("START_REQUESTED PUBLISHED")
-        elif switch in {"LEFT_FLIPPER_BUTTON","RIGHT_FLIPPER_BUTTON"}:
+        elif switch in {"FLIPPER_LEFT","FLIPPER_RIGHT"}:
             self.event_bus.publish(
                 GAME_LAUNCH_REQUESTED)
 
