@@ -6,6 +6,6 @@ FACTORY_DEFAULTS = {
     "PASSIVE_TIMEOUT": 300,
     "HIGHSCORE_TIMEOUT": 30,
     "BALLS_PER_GAME": 3,
-    "FREEPLAY": False,
+    "FREEPLAY": True,
     "BOOT_SERVICE_MODE": False
 }
