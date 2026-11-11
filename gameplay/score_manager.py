@@ -1,3 +1,5 @@
+# gameplay/scoremanager.py
+
 from core.events import (
     SWITCH_PRESSED,
     GROUP_COMPLETED,

@@ -78,7 +78,7 @@ class BallManager:
         if (
             time()
             - self.last_supply_attempt
-            < 1
+            < 5
         ):
             return
 
