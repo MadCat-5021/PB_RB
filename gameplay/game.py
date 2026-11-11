@@ -2,7 +2,7 @@
 
 from time import sleep, time
 from core.event_bus import EventBus
-from core.events import (START_REQUESTED,GAME_LAUNCH_REQUESTED,BALL_SUPPLY)
+from core.events import (START_REQUESTED,GAME_LAUNCH_REQUESTED,BALL_SUPPLY,BALL_READY,PRE_TURN)
 from core.state_manager import StateManager
 from core.settings_manager import SettingsManager
 from gameplay.control_manager import ControlManager
@@ -14,6 +14,7 @@ from input.input_manager import InputManager
 from content.validator import validate
 from content.groups import GROUPS
 from content.sequences import SEQUENCES
+from gameplay.ball_manager import BallManager
 
 class Game:
     def __init__(self):
@@ -29,6 +30,7 @@ class Game:
         self.game_started_at = 0
         self.event_bus.subscribe(GAME_LAUNCH_REQUESTED,self.on_game_launch_requested)
         self.event_bus.subscribe(START_REQUESTED,self.on_start_requested)
+        self.event_bus.subscribe(BALL_READY,self.on_ball_ready)
         self.boot()
 
     def boot(self):
@@ -79,39 +81,63 @@ class Game:
         event_type,
         data):
         print("START REQUEST RECEIVED")
-        self.game_started_at = time()
+
         credits = self.control_manager.get_credits()
         freeplay = self.settings.get("FREEPLAY")
+
         if not self.game_active:
-            if (not freeplay and credits <= 0):
+            if (
+                not freeplay
+                and credits <= 0
+            ):
                 print("START DENIED: NO CREDITS")
                 return
+
             self.game_active = True
             self.players = 1
             self.ball_launched = False
             self.game_started_at = time()
+
             if not freeplay:
                 self.control_manager.credits -= 1
+
+            self.event_bus.publish(
+                PRE_TURN,
+                {})
+
             print("GAME STARTED")
             print(f"PLAYERS: {self.players}")
-            self.state_manager.set_state("GAME")
+
+            self.state_manager.set_state(
+                "GAME")
+
             return
+
         if self.ball_launched:
-            print("ADD PLAYER DENIED: BALL IN PLAY")
+            print(
+                "ADD PLAYER DENIED: BALL IN PLAY")
             return
+
         if self.players >= 4:
-            print("ADD PLAYER DENIED: MAX PLAYERS")
+            print(
+                "ADD PLAYER DENIED: MAX PLAYERS")
             return
+
         if (
             not freeplay
             and credits <= 0
         ):
-            print("ADD PLAYER DENIED: NO CREDITS")
+            print(
+                "ADD PLAYER DENIED: NO CREDITS")
             return
+
         if not freeplay:
             self.control_manager.credits -= 1
+
         self.players += 1
-        print(f"PLAYER {self.players} ADDED")
+
+        print(
+            f"PLAYER {self.players} ADDED")
 
     def run(self):
         self.input_manager.run()
@@ -135,3 +161,9 @@ class Game:
             BALL_SUPPLY,
             {})
         self.ball_launched = True
+
+    def on_ball_ready(
+        self,
+        event_type,
+        data):
+        print("BALL READY RECEIVED")        

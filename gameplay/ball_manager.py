@@ -1,0 +1,46 @@
+# gameplay/ball_manager.py
+
+from core.events import (
+    BALL_SUPPLY,
+    BALL_READY,
+    SWITCH_PRESSED)
+
+class BallManager:
+    def __init__(
+        self,
+        event_bus,
+        coil_manager):
+        self.event_bus = event_bus
+        self.coil_manager = coil_manager
+        self.waiting_for_ball = False
+        self.event_bus.subscribe(
+            BALL_SUPPLY,
+            self.on_ball_supply)
+        self.event_bus.subscribe(
+            SWITCH_PRESSED,
+            self.on_switch_pressed)
+
+    def on_ball_supply(
+        self,
+        event_type,
+        data):
+        print("BALL MANAGER: SUPPLY")
+        self.waiting_for_ball = True
+        self.coil_manager.pulse(
+            "TROUGH_COIL",
+            100)
+
+    def on_switch_pressed(
+        self,
+        event_type,
+        data):
+        if not self.waiting_for_ball:
+            return
+        switch = data["switch"]
+        if switch != "PLUNGER":
+            return
+        self.waiting_for_ball = False
+        print("BALL READY")
+        self.event_bus.publish(
+            BALL_READY,
+            {})
