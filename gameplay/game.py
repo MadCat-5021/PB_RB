@@ -5,16 +5,17 @@ from core.event_bus import EventBus
 from core.events import (START_REQUESTED,GAME_LAUNCH_REQUESTED,BALL_SUPPLY,BALL_READY,PRE_TURN)
 from core.state_manager import StateManager
 from core.settings_manager import SettingsManager
+from gameplay.ball_manager import BallManager
 from gameplay.control_manager import ControlManager
 from gameplay.target_manager import TargetManager
 from gameplay.score_manager import ScoreManager
 from gameplay.groups import Group
 from gameplay.sequences import Sequence
+from hardware.coil_manager import CoilManager
 from input.input_manager import InputManager
 from content.validator import validate
 from content.groups import GROUPS
 from content.sequences import SEQUENCES
-from gameplay.ball_manager import BallManager
 
 class Game:
     def __init__(self):
@@ -45,6 +46,11 @@ class Game:
             self.event_bus)
         self.input_manager = InputManager(
             self.event_bus)
+        self.coil_manager = CoilManager()
+        self.ball_manager = BallManager(
+            self.event_bus,
+            self.coil_manager,
+            self.target_manager)
         print("BOOT: Loading groups...")
         self.groups = [
             Group(
@@ -144,6 +150,7 @@ class Game:
         while True:
             self.state_manager.check_timeouts()
             self.check_game_start()
+            self.ball_manager.check_supply()
             sleep(0.1)
 
     def check_game_start(self):
