@@ -87,10 +87,8 @@ class Game:
         event_type,
         data):
         print("START REQUEST RECEIVED")
-
         credits = self.control_manager.get_credits()
         freeplay = self.settings.get("FREEPLAY")
-
         if not self.game_active:
             if (
                 not freeplay
@@ -98,37 +96,28 @@ class Game:
             ):
                 print("START DENIED: NO CREDITS")
                 return
-
             self.game_active = True
             self.players = 1
             self.ball_launched = False
             self.game_started_at = time()
-
             if not freeplay:
                 self.control_manager.credits -= 1
-
             self.event_bus.publish(
                 PRE_TURN,
                 {})
-
             print("GAME STARTED")
             print(f"PLAYERS: {self.players}")
-
             self.state_manager.set_state(
                 "GAME")
-
             return
-
         if self.ball_launched:
             print(
                 "ADD PLAYER DENIED: BALL IN PLAY")
             return
-
         if self.players >= 4:
             print(
                 "ADD PLAYER DENIED: MAX PLAYERS")
             return
-
         if (
             not freeplay
             and credits <= 0
@@ -136,14 +125,10 @@ class Game:
             print(
                 "ADD PLAYER DENIED: NO CREDITS")
             return
-
         if not freeplay:
             self.control_manager.credits -= 1
-
         self.players += 1
-
-        print(
-            f"PLAYER {self.players} ADDED")
+        print(f"PLAYER {self.players} ADDED")
 
     def run(self):
         self.input_manager.run()
