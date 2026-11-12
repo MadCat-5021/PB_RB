@@ -1,7 +1,6 @@
 # gameplay/ball_manager.py
 
 from time import time
-from core.settings_manager import SettingsManager
 from core.events import (
     BALL_SUPPLY,
     BALL_READY,
@@ -14,13 +13,14 @@ class BallManager:
         self,
         event_bus,
         coil_manager,
-        target_manager):
+        target_manager,
+        settings):
         self.event_bus = event_bus
         self.coil_manager = coil_manager
         self.target_manager = target_manager
         self.waiting_for_ball = False
         self.last_supply_attempt = 0
-        self.settings = SettingsManager()
+        self.settings = settings
         self.event_bus.subscribe(BALL_SUPPLY,self.on_ball_supply)
         self.event_bus.subscribe(SWITCH_PRESSED,self.on_switch_pressed)
 

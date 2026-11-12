@@ -2,11 +2,21 @@
 
 from time import sleep, time
 from core.event_bus import EventBus
-from core.events import (START_REQUESTED,GAME_LAUNCH_REQUESTED,BALL_SUPPLY,BALL_READY,PRE_TURN)
+from core.events import (
+    BALL_READY,
+    BALL_STARTED,
+    BALL_SUPPLY,
+    GAME_LAUNCH_REQUESTED,
+    LAUNCH_SEQUENCE,
+    PRE_TURN,
+    START_REQUESTED,
+    SWITCH_RELEASED
+)
 from core.state_manager import StateManager
 from core.settings_manager import SettingsManager
 from gameplay.ball_manager import BallManager
 from gameplay.control_manager import ControlManager
+from gameplay.launch_manager import LaunchManager
 from gameplay.target_manager import TargetManager
 from gameplay.score_manager import ScoreManager
 from gameplay.groups import Group
@@ -29,9 +39,13 @@ class Game:
         self.ball_launched = False
         self.game_active = False
         self.game_started_at = 0
+        self.first_ball_of_turn = False
+        self.waiting_for_plunger_release = False
         self.event_bus.subscribe(GAME_LAUNCH_REQUESTED,self.on_game_launch_requested)
         self.event_bus.subscribe(START_REQUESTED,self.on_start_requested)
         self.event_bus.subscribe(BALL_READY,self.on_ball_ready)
+        self.event_bus.subscribe(PRE_TURN,self.on_pre_turn)
+        self.event_bus.subscribe(SWITCH_RELEASED,self.on_switch_released)
         self.boot()
 
     def boot(self):
@@ -50,7 +64,9 @@ class Game:
         self.ball_manager = BallManager(
             self.event_bus,
             self.coil_manager,
-            self.target_manager)
+            self.target_manager,
+            self.settings)
+        self.launch_manager = LaunchManager(self.event_bus)
         print("BOOT: Loading groups...")
         self.groups = [
             Group(
@@ -156,6 +172,36 @@ class Game:
 
     def on_ball_ready(
         self,
-        event_type,
+        _event_type,
+        _data):
+        print("BALL READY RECEIVED")
+        if not self.first_ball_of_turn:
+            return
+        self.first_ball_of_turn = False
+        if self.settings.get("MACHINE_HAS_LAUNCH_SEQUENCE"):
+            self.event_bus.publish(
+                LAUNCH_SEQUENCE,
+                {})
+            return
+        self.waiting_for_plunger_release = True
+        print("WAITING FOR PLUNGER RELEASE")
+
+    def on_pre_turn(
+        self,
+        _event_type,
+        _data):
+        self.first_ball_of_turn = True
+        self.waiting_for_plunger_release = False
+
+    def on_switch_released(
+        self,
+        _event_type,
         data):
-        print("BALL READY RECEIVED")        
+        if not self.waiting_for_plunger_release:
+            return
+        if data["switch"] != "PLUNGER":
+            return
+        self.waiting_for_plunger_release = False
+        self.event_bus.publish(
+            BALL_STARTED,
+            {})

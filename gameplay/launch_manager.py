@@ -1,6 +1,10 @@
 # gameplay/launch_manager.py
 
-from core.events import (LAUNCH_SEQUENCE,LAUNCH_COMPLETE)
+from core.events import (
+    BALL_STARTED,
+    LAUNCH_COMPLETED,
+    LAUNCH_SEQUENCE
+)
 
 class LaunchManager:
 
@@ -9,7 +13,7 @@ class LaunchManager:
         event_bus):
         self.event_bus = event_bus
         self.event_bus.subscribe(LAUNCH_SEQUENCE,self.on_launch_sequence)
-        self.event_bus.subscribe(LAUNCH_COMPLETE,self.on_launch_complete)
+        self.event_bus.subscribe(LAUNCH_COMPLETED,self.on_launch_complete)
 
     def on_launch_sequence(
         self,
@@ -22,3 +26,6 @@ class LaunchManager:
         event_type,
         data):
         print("BALL LAUNCHED")
+        self.event_bus.publish(
+            BALL_STARTED,
+            {})

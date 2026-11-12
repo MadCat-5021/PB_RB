@@ -142,6 +142,10 @@ Available Inputs:
 - Start Button
 - Credit Button
 
+## Console Input Simulation
+- Enter a switch name to publish `SWITCH_PRESSED`.
+- Enter `RELEASE PLUNGER` to simulate the plunger switch releasing.
+
 ## Control Philosophy
 Control switches may:
 - Directly control hardware
