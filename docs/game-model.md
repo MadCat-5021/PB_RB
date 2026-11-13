@@ -12,6 +12,10 @@ Properties:
 - Bonus Score
 - Multiplier
 
+Scores and bonuses belong to individual players and are maintained by the
+PlayerManager. The ScoreManager calculates awards and applies them to the
+active player's totals.
+
 ## Player
 
 Tracks the active player and player-specific progress.
@@ -21,8 +25,15 @@ Properties:
 - Player Number
 - Current Score
 - Current Ball
+- Balls Played
 - Completed Missions
 - Completed Challenges
+
+Players take turns playing the same ball number in order. A turn that ends
+without shoot-again or an extra ball advances to the next player; after all
+players complete a ball, the ball number advances. `BALLS_PER_GAME` sets the
+last ball number for each player. Mission and challenge progress is stored
+separately for each player.
 
 ## Ball
 

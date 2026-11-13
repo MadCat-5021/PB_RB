@@ -3,22 +3,29 @@
 from time import sleep, time
 from core.event_bus import EventBus
 from core.events import (
+    BALL_DRAINED,
     BALL_LAUNCHED,
     BALL_READY,
     BALL_STARTED,
     BALL_SUPPLY,
+    EXTRA_BALL_AWARDED,
     GAME_LAUNCH_REQUESTED,
+    GAME_ENDED,
+    HIGHSCORES,
     LAUNCH_SEQUENCE,
     PRE_TURN,
     SHOOT_AGAIN_STARTED,
     START_REQUESTED,
-    SWITCH_RELEASED
+    SWITCH_PRESSED,
+    SWITCH_RELEASED,
+    TURN_ENDED
 )
 from core.state_manager import StateManager
 from core.settings_manager import SettingsManager
 from gameplay.ball_manager import BallManager
 from gameplay.control_manager import ControlManager
 from gameplay.launch_manager import LaunchManager
+from gameplay.player_manager import PlayerManager
 from gameplay.shoot_again_manager import ShootAgainManager
 from gameplay.target_manager import TargetManager
 from gameplay.score_manager import ScoreManager
@@ -38,18 +45,25 @@ class Game:
             self.event_bus,
             self.settings,
             "BOOT")
-        self.players = 0
+        self.player_manager = PlayerManager(self.settings)
         self.ball_launched = False
         self.game_active = False
         self.game_started_at = 0
+        self.initial_ball_pending = False
         self.first_ball_of_turn = False
         self.first_ball_launched = False
         self.waiting_for_ball_launched = False
+        self.extra_ball_awarded = False
         self.event_bus.subscribe(GAME_LAUNCH_REQUESTED,self.on_game_launch_requested)
         self.event_bus.subscribe(START_REQUESTED,self.on_start_requested)
+        self.event_bus.subscribe(GAME_ENDED,self.on_game_ended)
         self.event_bus.subscribe(BALL_READY,self.on_ball_ready)
         self.event_bus.subscribe(BALL_LAUNCHED,self.on_ball_launched)
+        self.event_bus.subscribe(BALL_DRAINED,self.on_ball_drained)
+        self.event_bus.subscribe(EXTRA_BALL_AWARDED,self.on_extra_ball_awarded)
+        self.event_bus.subscribe(TURN_ENDED,self.on_turn_ended)
         self.event_bus.subscribe(PRE_TURN,self.on_pre_turn)
+        self.event_bus.subscribe(SWITCH_PRESSED,self.on_switch_pressed)
         self.event_bus.subscribe(SWITCH_RELEASED,self.on_switch_released)
         self.boot()
 
@@ -62,7 +76,8 @@ class Game:
         self.target_manager = TargetManager(
             self.event_bus)
         self.score_manager = ScoreManager(
-            self.event_bus)
+            self.event_bus,
+            self.player_manager)
         self.input_manager = InputManager(
             self.event_bus)
         self.coil_manager = CoilManager()
@@ -105,6 +120,26 @@ class Game:
         if self.ball_launched:
             return
         self.supply_ball()
+
+    def on_game_ended(
+        self,
+        _event_type,
+        data):
+        print("GAME OVER")
+        for player in data["results"]:
+            print(
+                f"PLAYER {player['number']} FINAL SCORE: "
+                f"{player['score']} | BONUS: {player['bonus']}"
+            )
+
+        sleep(2)
+        self.state_manager.set_state("HIGHSCORE")
+        self.event_bus.publish(
+            HIGHSCORES,
+            {"results": data["results"]})
+        print("HIGHSCORE SCREEN")
+        sleep(2)
+        self.state_manager.set_state("ACTIVE")
         
     def on_start_requested(
         self,
@@ -120,9 +155,11 @@ class Game:
             ):
                 print("START DENIED: NO CREDITS")
                 return
+            self.player_manager.start_game()
             self.game_active = True
-            self.players = 1
             self.ball_launched = False
+            self.initial_ball_pending = True
+            self.extra_ball_awarded = False
             self.game_started_at = time()
             if not freeplay:
                 self.control_manager.credits -= 1
@@ -130,7 +167,7 @@ class Game:
                 PRE_TURN,
                 {})
             print("GAME STARTED")
-            print(f"PLAYERS: {self.players}")
+            print(f"PLAYERS: {self.player_manager.player_count}")
             self.state_manager.set_state(
                 "GAME")
             return
@@ -138,7 +175,7 @@ class Game:
             print(
                 "ADD PLAYER DENIED: BALL IN PLAY")
             return
-        if self.players >= 4:
+        if self.player_manager.player_count >= self.settings.get("MAX_PLAYERS"):
             print(
                 "ADD PLAYER DENIED: MAX PLAYERS")
             return
@@ -151,8 +188,10 @@ class Game:
             return
         if not freeplay:
             self.control_manager.credits -= 1
-        self.players += 1
-        print(f"PLAYER {self.players} ADDED")
+        if not self.player_manager.add_player():
+            print("ADD PLAYER DENIED: MAX PLAYERS")
+            return
+        print(f"PLAYER {self.player_manager.player_count} ADDED")
 
     def run(self):
         self.input_manager.run()
@@ -167,6 +206,8 @@ class Game:
     def check_game_start(self):
         if not self.game_active:
             return
+        if not self.initial_ball_pending:
+            return
         if self.ball_launched:
             return
         if (time() - self.game_started_at < self.settings.get("GAME_START_TIMEOUT")):
@@ -175,6 +216,7 @@ class Game:
 
     def supply_ball(self):
         print("BALL SUPPLY")
+        self.initial_ball_pending = False
         self.event_bus.publish(
             BALL_SUPPLY,
             {})
@@ -185,11 +227,11 @@ class Game:
         _event_type,
         _data):
         print("BALL READY RECEIVED")
+        self.waiting_for_ball_launched = True
+        print("WAITING FOR BALL LAUNCHED")
         if not self.first_ball_of_turn:
             return
         self.first_ball_of_turn = False
-        self.waiting_for_ball_launched = True
-        print("WAITING FOR BALL LAUNCHED")
         if self.settings.get("MACHINE_HAS_LAUNCH_SEQUENCE"):
             self.event_bus.publish(
                 LAUNCH_SEQUENCE,
@@ -202,6 +244,19 @@ class Game:
         self.first_ball_of_turn = True
         self.first_ball_launched = False
         self.waiting_for_ball_launched = False
+        player = self.player_manager.current_player
+        if player is None:
+            return
+        print(
+            f"PRE-TURN: PLAYER {player.number}, "
+            f"BALL {self.player_manager.current_ball}/"
+            f"{self.player_manager.balls_per_game}"
+        )
+        print(f"SCORE: {player.score} | BONUS: {player.bonus}")
+        print(
+            f"MISSIONS: {len(player.completed_missions)} completed | "
+            f"CHALLENGES: {len(player.completed_challenges)} completed"
+        )
 
     def on_switch_released(
         self,
@@ -214,6 +269,14 @@ class Game:
         self.event_bus.publish(
             BALL_LAUNCHED,
             {})
+
+    def on_switch_pressed(
+        self,
+        _event_type,
+        data):
+        if data["switch"] != "DRAIN":
+            return
+        self.event_bus.publish(BALL_DRAINED, {})
 
     def on_ball_launched(
         self,
@@ -233,3 +296,56 @@ class Game:
             self.event_bus.publish(
                 SHOOT_AGAIN_STARTED,
                 {})
+
+    def on_extra_ball_awarded(
+        self,
+        _event_type,
+        _data):
+        self.extra_ball_awarded = True
+
+    def on_ball_drained(
+        self,
+        _event_type,
+        _data):
+        if not self.game_active or not self.ball_launched:
+            return
+
+        self.ball_launched = False
+        self.waiting_for_ball_launched = False
+
+        if self.shoot_again_manager.is_active():
+            self.shoot_again_manager.deactivate()
+            self.first_ball_of_turn = False
+            self.supply_ball()
+            return
+
+        if self.extra_ball_awarded:
+            self.extra_ball_awarded = False
+            self.first_ball_of_turn = False
+            self.supply_ball()
+            return
+
+        self.event_bus.publish(TURN_ENDED, {})
+
+    def on_turn_ended(
+        self,
+        _event_type,
+        _data):
+        if not self.game_active or self.ball_launched:
+            return
+
+        game_result = self.player_manager.finish_turn()
+        if game_result is not None:
+            self.game_active = False
+            self.initial_ball_pending = False
+            self.waiting_for_ball_launched = False
+            self.event_bus.publish(GAME_ENDED, game_result)
+            return
+
+        self.event_bus.publish(
+            PRE_TURN,
+            {
+                "player": self.player_manager.current_player.number,
+                "ball": self.player_manager.current_ball
+            })
+        self.supply_ball()

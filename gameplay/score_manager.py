@@ -14,12 +14,10 @@ from content.sequences import SEQUENCES
 
 class ScoreManager:
 
-    def __init__(self, event_bus):
+    def __init__(self, event_bus, player_manager):
 
         self.event_bus = event_bus
-
-        self.score = 0
-        self.bonus = 0
+        self.player_manager = player_manager
 
         self.targets = {
             target["name"]: target
@@ -57,12 +55,14 @@ class ScoreManager:
         )
 
     def add_score(self, points):
-
-        self.score += points
+        if not self.player_manager.add_score(points):
+            print("SCORE IGNORED: NO ACTIVE PLAYER")
+            return
 
         print(
             f"SCORE: +{points} "
-            f"(TOTAL: {self.score})"
+            f"(PLAYER {self.player_manager.current_player.number}: "
+            f"{self.player_manager.get_score()})"
         )
 
     def on_switch_pressed(
@@ -111,17 +111,18 @@ class ScoreManager:
             self.sequences[sequence_name]["score"]
         )
 
-    def get_score(self):
-
-        return self.score
+    def get_score(self, player_number=None):
+        return self.player_manager.get_score(player_number)
 
     def add_bonus(self, points):
-
-        self.bonus += points
+        if not self.player_manager.add_bonus(points):
+            print("BONUS IGNORED: NO ACTIVE PLAYER")
+            return
 
         print(
             f"BONUS: +{points} "
-            f"(TOTAL: {self.bonus})"
+            f"(PLAYER {self.player_manager.current_player.number}: "
+            f"{self.player_manager.get_bonus()})"
         )
 
     def on_launch_bonus_awarded(
@@ -132,6 +133,5 @@ class ScoreManager:
 
         self.add_bonus(data["points"])
 
-    def get_bonus(self):
-
-        return self.bonus
+    def get_bonus(self, player_number=None):
+        return self.player_manager.get_bonus(player_number)

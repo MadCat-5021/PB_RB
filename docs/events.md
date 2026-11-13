@@ -114,6 +114,13 @@ sequence completion also publish this event.
 The Game accepts this event only while waiting for the current ball to launch,
 then publishes `BALL_STARTED`.
 
+### BALL_DRAINED
+
+Generated when the `DRAIN` switch is pressed for the active ball. If
+shoot-again is active, the game deactivates it and supplies another ball.
+Otherwise, a pending extra-ball award is consumed to supply another ball. If
+neither applies, the game publishes `TURN_ENDED`.
+
 ### SHOOT_AGAIN_STARTED
 
 Generated after the first ball of a turn is launched. The shoot-again window
@@ -127,7 +134,44 @@ activates or refreshes the shoot-again window.
 
 ### SHOOT_AGAIN_EXPIRED
 
-Generated when the shoot-again window expires.
+Generated when the shoot-again window ends, by timeout or when a drained ball
+uses the active shoot-again.
+
+### TURN_ENDED
+
+Generated when a drained ball has neither active shoot-again nor a pending
+extra-ball award.
+
+If other players still need to play the current ball, the next player's turn
+starts. Otherwise the next ball round starts. When all players have completed
+`BALLS_PER_GAME`, the game publishes `GAME_ENDED`.
+
+Each `PRE_TURN` prints the active player number, ball number, score, bonus, and
+counts of completed missions and challenges to the console.
+
+### GAME_ENDED
+
+Generated after every player has completed the configured number of balls.
+
+Properties:
+
+- players
+- balls_per_game
+- balls_played
+- results (per-player scores, bonuses, balls played, missions, and challenges)
+
+When received, the game prints final scores and waits two seconds, enters
+`HIGHSCORE`, and publishes `HIGHSCORES` with the final results. It prints
+`HIGHSCORE SCREEN`, waits two more seconds, then returns to `ACTIVE`.
+
+### HIGHSCORES
+
+Generated after the game-over pause to provide final player results to the
+high-score screen or future high-score manager.
+
+Properties:
+
+- results
 
 ### LAUNCH_COUNTDOWN_TICK
 
@@ -146,6 +190,10 @@ begins.
 
 Generated when the ball launches during the five-second reaction window.
 The awarded points are tracked as bonus, separately from regular score.
+The launch manager also prints the reaction result: the bonus message, or
+`Start infringement` for a launch before zero, or `Too slow` for a launch more
+than five seconds after zero. No result is shown if no launch sequence was
+started.
 
 Properties:
 

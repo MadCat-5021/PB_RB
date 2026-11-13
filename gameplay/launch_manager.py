@@ -93,6 +93,11 @@ class LaunchManager:
                     "points": bonus,
                     "reaction_time": reaction_time
                 })
+            print(f"Quick off the line, BONUS: {bonus}")
+        elif launched_at < self.zero_at:
+            print("Start infringement")
+        else:
+            print("Too slow")
 
         self.countdown_started_at = None
         self.zero_at = None

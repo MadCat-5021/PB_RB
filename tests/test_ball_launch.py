@@ -19,6 +19,7 @@ from core.events import (
 )
 from gameplay.game import Game
 from gameplay.launch_manager import LaunchManager
+from gameplay.player_manager import PlayerManager
 from gameplay.score_manager import ScoreManager
 from input.input_manager import InputManager
 
@@ -30,6 +31,10 @@ class Settings:
     def get(self, name):
         if name == "MACHINE_HAS_LAUNCH_SEQUENCE":
             return self.has_launch_sequence
+        if name == "BALLS_PER_GAME":
+            return 3
+        if name == "MAX_PLAYERS":
+            return 4
         raise KeyError(name)
 
 
@@ -38,6 +43,8 @@ class BallLaunchTests(unittest.TestCase):
         game = Game.__new__(Game)
         game.event_bus = EventBus()
         game.settings = Settings(has_launch_sequence)
+        game.player_manager = PlayerManager(game.settings)
+        game.player_manager.start_game()
         game.first_ball_of_turn = True
         game.first_ball_launched = False
         game.waiting_for_ball_launched = False
@@ -148,7 +155,9 @@ class BallLaunchTests(unittest.TestCase):
         event_bus.subscribe(
             LAUNCH_BONUS_AWARDED,
             lambda _event, data: launch_bonuses.append(data))
-        score_manager = ScoreManager(event_bus)
+        player_manager = PlayerManager(Settings(True))
+        player_manager.start_game()
+        score_manager = ScoreManager(event_bus, player_manager)
         launch_manager = LaunchManager(event_bus)
 
         with patch("gameplay.launch_manager.monotonic", return_value=0):
@@ -198,6 +207,32 @@ class BallLaunchTests(unittest.TestCase):
         with patch("gameplay.launch_manager.monotonic", return_value=30):
             event_bus.publish(BALL_LAUNCHED, {})
         self.assertEqual(bonuses, [5000, 500])
+
+    def test_launch_result_messages_only_show_for_launch_sequences(self):
+        event_bus = EventBus()
+        LaunchManager(event_bus)
+
+        with redirect_stdout(StringIO()) as output:
+            event_bus.publish(BALL_LAUNCHED, {})
+        self.assertEqual(output.getvalue(), "")
+
+        for launch_at, expected_message in (
+            (4.9, "Start infringement"),
+            (5, "Quick off the line, BONUS: 5000"),
+            (10.1, "Too slow"),
+        ):
+            with self.subTest(launch_at=launch_at):
+                with patch("gameplay.launch_manager.monotonic", return_value=0):
+                    with patch("gameplay.launch_manager.uniform", return_value=1):
+                        event_bus.publish(LAUNCH_SEQUENCE, {})
+                output = StringIO()
+                with patch(
+                    "gameplay.launch_manager.monotonic",
+                    return_value=launch_at
+                ):
+                    with redirect_stdout(output):
+                        event_bus.publish(BALL_LAUNCHED, {})
+                self.assertIn(expected_message, output.getvalue())
 
     def test_shoot_again_starts_only_after_first_launch_per_turn(self):
         game = self.make_game(has_launch_sequence=False)

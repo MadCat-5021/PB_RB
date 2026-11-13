@@ -27,6 +27,11 @@ class ShootAgainManager:
     def update(self):
         if not self.active or monotonic() < self.expires_at:
             return
+        self.deactivate()
+
+    def deactivate(self):
+        if not self.active:
+            return
         self.active = False
         self.expires_at = None
         print("SHOOT AGAIN ENDED")
