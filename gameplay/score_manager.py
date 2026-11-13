@@ -3,7 +3,8 @@
 from core.events import (
     SWITCH_PRESSED,
     GROUP_COMPLETED,
-    SEQUENCE_COMPLETED
+    SEQUENCE_COMPLETED,
+    LAUNCH_BONUS_AWARDED
 )
 
 from content.targets import TARGETS
@@ -18,6 +19,7 @@ class ScoreManager:
         self.event_bus = event_bus
 
         self.score = 0
+        self.bonus = 0
 
         self.targets = {
             target["name"]: target
@@ -47,6 +49,11 @@ class ScoreManager:
         self.event_bus.subscribe(
             SEQUENCE_COMPLETED,
             self.on_sequence_completed
+        )
+
+        self.event_bus.subscribe(
+            LAUNCH_BONUS_AWARDED,
+            self.on_launch_bonus_awarded
         )
 
     def add_score(self, points):
@@ -107,3 +114,24 @@ class ScoreManager:
     def get_score(self):
 
         return self.score
+
+    def add_bonus(self, points):
+
+        self.bonus += points
+
+        print(
+            f"BONUS: +{points} "
+            f"(TOTAL: {self.bonus})"
+        )
+
+    def on_launch_bonus_awarded(
+        self,
+        _event_type,
+        data
+    ):
+
+        self.add_bonus(data["points"])
+
+    def get_bonus(self):
+
+        return self.bonus

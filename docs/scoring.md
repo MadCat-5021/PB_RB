@@ -89,7 +89,15 @@ Score = Score + Base Score × Bonus Multiplier
 Bonus = Bonus + (Bonus x Bonus Multipier
 ## Ball Bonus
 
+The launch sequence awards a separate bonus, not regular score:
+- The countdown runs from 5 to 1, then waits a random 0.8 to 2 seconds before 0.
+- Launches before 0 receive no bonus.
+- Launches from 0 through 5 seconds after 0 receive a bonus decreasing linearly
+  from 5000 to 500 points in 10-point steps.
+- Launches later than 5 seconds after 0 receive no bonus.
+
 ## End Of Ball
+
 When the ball drains and no extra ball or shoot again was rewarded
 
 ## Game Completed

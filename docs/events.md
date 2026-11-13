@@ -114,6 +114,44 @@ sequence completion also publish this event.
 The Game accepts this event only while waiting for the current ball to launch,
 then publishes `BALL_STARTED`.
 
+### SHOOT_AGAIN_STARTED
+
+Generated after the first ball of a turn is launched. The shoot-again window
+becomes active for `SHOOT_AGAIN_TIMEOUT` seconds.
+
+### EXTRA_BALL_AWARDED
+
+Generated when gameplay awards an extra ball. This is separate from
+`SHOOT_AGAIN_STARTED` so the display can show the appropriate message. It also
+activates or refreshes the shoot-again window.
+
+### SHOOT_AGAIN_EXPIRED
+
+Generated when the shoot-again window expires.
+
+### LAUNCH_COUNTDOWN_TICK
+
+Generated for each launch countdown value from 5 through 1.
+
+Properties:
+
+- count
+
+### LAUNCH_ZERO
+
+Generated when the randomized pause after 1 ends and the bonus reaction window
+begins.
+
+### LAUNCH_BONUS_AWARDED
+
+Generated when the ball launches during the five-second reaction window.
+The awarded points are tracked as bonus, separately from regular score.
+
+Properties:
+
+- points
+- reaction_time
+
 ## System Events
 
 ### SYSTEM_START

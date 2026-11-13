@@ -10,6 +10,7 @@ from core.events import (
     GAME_LAUNCH_REQUESTED,
     LAUNCH_SEQUENCE,
     PRE_TURN,
+    SHOOT_AGAIN_STARTED,
     START_REQUESTED,
     SWITCH_RELEASED
 )
@@ -18,6 +19,7 @@ from core.settings_manager import SettingsManager
 from gameplay.ball_manager import BallManager
 from gameplay.control_manager import ControlManager
 from gameplay.launch_manager import LaunchManager
+from gameplay.shoot_again_manager import ShootAgainManager
 from gameplay.target_manager import TargetManager
 from gameplay.score_manager import ScoreManager
 from gameplay.groups import Group
@@ -41,6 +43,7 @@ class Game:
         self.game_active = False
         self.game_started_at = 0
         self.first_ball_of_turn = False
+        self.first_ball_launched = False
         self.waiting_for_ball_launched = False
         self.event_bus.subscribe(GAME_LAUNCH_REQUESTED,self.on_game_launch_requested)
         self.event_bus.subscribe(START_REQUESTED,self.on_start_requested)
@@ -69,6 +72,9 @@ class Game:
             self.target_manager,
             self.settings)
         self.launch_manager = LaunchManager(self.event_bus)
+        self.shoot_again_manager = ShootAgainManager(
+            self.event_bus,
+            self.settings)
         print("BOOT: Loading groups...")
         self.groups = [
             Group(
@@ -152,6 +158,8 @@ class Game:
         self.input_manager.run()
         while True:
             self.state_manager.check_timeouts()
+            self.launch_manager.update()
+            self.shoot_again_manager.update()
             self.check_game_start()
             self.ball_manager.check_supply()
             sleep(0.1)
@@ -192,6 +200,7 @@ class Game:
         _event_type,
         _data):
         self.first_ball_of_turn = True
+        self.first_ball_launched = False
         self.waiting_for_ball_launched = False
 
     def on_switch_released(
@@ -214,7 +223,13 @@ class Game:
             print("BALL LAUNCHED IGNORED: NOT WAITING FOR A BALL")
             return
         self.waiting_for_ball_launched = False
+        first_ball = not self.first_ball_launched
+        self.first_ball_launched = True
         print("BALL STARTED")
         self.event_bus.publish(
             BALL_STARTED,
             {})
+        if first_ball:
+            self.event_bus.publish(
+                SHOOT_AGAIN_STARTED,
+                {})

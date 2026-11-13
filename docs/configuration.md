@@ -104,6 +104,10 @@ Configureerbaar:
 - Max Credits
 - Free Play
 
+## Shoot Again
+Configureerbaar:
+- Shoot Again Timeout
+
 ## Tilting
 Configureerbaar:
 - Tilt Warnings
