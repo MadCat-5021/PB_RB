@@ -85,13 +85,13 @@ class PlayerManager:
         return None
 
     def add_score(self, points):
-        if self.current_player is None:
+        if not self.game_active or self.current_player is None:
             return False
         self.current_player.score += points
         return True
 
     def add_bonus(self, points):
-        if self.current_player is None:
+        if not self.game_active or self.current_player is None:
             return False
         self.current_player.bonus += points
         return True

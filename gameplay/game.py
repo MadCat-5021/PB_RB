@@ -1,6 +1,6 @@
 # gameplay/game.py
 
-from time import sleep, time
+from time import monotonic, sleep, time
 from core.event_bus import EventBus
 from core.events import (
     BALL_DRAINED,
@@ -54,6 +54,8 @@ class Game:
         self.first_ball_launched = False
         self.waiting_for_ball_launched = False
         self.extra_ball_awarded = False
+        self.game_end_stage = None
+        self.game_end_deadline = None
         self.event_bus.subscribe(GAME_LAUNCH_REQUESTED,self.on_game_launch_requested)
         self.event_bus.subscribe(START_REQUESTED,self.on_start_requested)
         self.event_bus.subscribe(GAME_ENDED,self.on_game_ended)
@@ -132,14 +134,29 @@ class Game:
                 f"{player['score']} | BONUS: {player['bonus']}"
             )
 
-        sleep(2)
-        self.state_manager.set_state("HIGHSCORE")
-        self.event_bus.publish(
-            HIGHSCORES,
-            {"results": data["results"]})
-        print("HIGHSCORE SCREEN")
-        sleep(2)
-        self.state_manager.set_state("ACTIVE")
+        self.game_end_stage = "highscores"
+        self.game_end_deadline = monotonic() + 2
+
+    def update_game_end(self):
+        if self.game_end_stage is None:
+            return
+        if monotonic() < self.game_end_deadline:
+            return
+
+        if self.game_end_stage == "highscores":
+            self.state_manager.set_state("HIGHSCORE")
+            self.event_bus.publish(
+                HIGHSCORES,
+                {"results": self.player_manager.get_results()})
+            print("HIGHSCORE SCREEN")
+            self.game_end_stage = "active"
+            self.game_end_deadline = monotonic() + 2
+            return
+
+        if self.game_end_stage == "active":
+            self.state_manager.set_state("ACTIVE")
+            self.game_end_stage = None
+            self.game_end_deadline = None
         
     def on_start_requested(
         self,
@@ -197,6 +214,7 @@ class Game:
         self.input_manager.run()
         while True:
             self.state_manager.check_timeouts()
+            self.update_game_end()
             self.launch_manager.update()
             self.shoot_again_manager.update()
             self.check_game_start()

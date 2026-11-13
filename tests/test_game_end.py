@@ -1,16 +1,22 @@
 import unittest
 from contextlib import redirect_stdout
 from io import StringIO
-from unittest.mock import call, patch
+from unittest.mock import patch
 
 from core.event_bus import EventBus
 from core.events import GAME_ENDED, HIGHSCORES, STATE_CHANGED
 from core.state_manager import StateManager
 from gameplay.game import Game
+from gameplay.player_manager import PlayerManager
 
 
 class Settings:
-    pass
+    def get(self, name):
+        if name == "BALLS_PER_GAME":
+            return 3
+        if name == "MAX_PLAYERS":
+            return 4
+        raise KeyError(name)
 
 
 class GameEndTests(unittest.TestCase):
@@ -23,6 +29,12 @@ class GameEndTests(unittest.TestCase):
         game = Game.__new__(Game)
         game.event_bus = event_bus
         game.state_manager = state_manager
+        game.player_manager = PlayerManager(Settings())
+        game.player_manager.start_game()
+        game.player_manager.add_score(12000)
+        game.player_manager.add_bonus(500)
+        game.game_end_stage = None
+        game.game_end_deadline = None
         event_bus.subscribe(GAME_ENDED, game.on_game_ended)
 
         highscore_states = []
@@ -42,17 +54,38 @@ class GameEndTests(unittest.TestCase):
         }
         output = StringIO()
 
-        with patch("gameplay.game.sleep") as sleep:
+        with patch(
+            "gameplay.game.monotonic",
+            side_effect=[10, 11, 12, 13, 14, 15]
+        ):
             with redirect_stdout(output):
                 event_bus.publish(GAME_ENDED, result)
+                self.assertEqual(state_manager.get_state(), "GAME")
+                game.update_game_end()
+                self.assertEqual(state_manager.get_state(), "GAME")
+                game.update_game_end()
+                self.assertEqual(state_manager.get_state(), "HIGHSCORE")
+                game.update_game_end()
+                self.assertEqual(state_manager.get_state(), "HIGHSCORE")
+                game.update_game_end()
 
         self.assertIn("GAME OVER", output.getvalue())
         self.assertIn("PLAYER 1 FINAL SCORE: 12000 | BONUS: 500", output.getvalue())
         self.assertIn("HIGHSCORE SCREEN", output.getvalue())
-        self.assertEqual(sleep.call_args_list, [call(2), call(2)])
         self.assertEqual(highscore_states, ["HIGHSCORE"])
         self.assertEqual(state_transitions, ["HIGHSCORE", "ACTIVE"])
         self.assertEqual(state_manager.get_state(), "ACTIVE")
+
+    def test_completed_game_does_not_accept_late_score_awards(self):
+        player_manager = PlayerManager(Settings())
+        player_manager.start_game()
+        player_manager.add_score(100)
+        player_manager.game_active = False
+
+        self.assertFalse(player_manager.add_score(50))
+        self.assertFalse(player_manager.add_bonus(25))
+        self.assertEqual(player_manager.get_score(), 100)
+        self.assertEqual(player_manager.get_bonus(), 0)
 
 
 if __name__ == "__main__":
