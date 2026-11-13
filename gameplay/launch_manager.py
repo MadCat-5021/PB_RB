@@ -1,7 +1,7 @@
 # gameplay/launch_manager.py
 
 from core.events import (
-    BALL_STARTED,
+    BALL_LAUNCHED,
     LAUNCH_COMPLETED,
     LAUNCH_SEQUENCE
 )
@@ -27,5 +27,5 @@ class LaunchManager:
         data):
         print("BALL LAUNCHED")
         self.event_bus.publish(
-            BALL_STARTED,
+            BALL_LAUNCHED,
             {})

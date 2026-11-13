@@ -1,7 +1,7 @@
 # input/input_manager.py
 
 from threading import Thread
-from core.events import SWITCH_PRESSED, SWITCH_RELEASED
+from core.events import BALL_LAUNCHED, SWITCH_PRESSED, SWITCH_RELEASED
 
 class InputManager:
     def __init__(self, event_bus):
@@ -13,6 +13,12 @@ class InputManager:
                 "Switch: "
             ).strip().upper()
             if not key:
+                continue
+            if key == "LAUNCHED":
+                print("LAUNCHED COMMAND RECEIVED")
+                self.event_bus.publish(
+                    BALL_LAUNCHED,
+                    {})
                 continue
             command, _, switch = key.partition(" ")
             if command == "RELEASE":

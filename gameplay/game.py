@@ -3,6 +3,7 @@
 from time import sleep, time
 from core.event_bus import EventBus
 from core.events import (
+    BALL_LAUNCHED,
     BALL_READY,
     BALL_STARTED,
     BALL_SUPPLY,
@@ -40,10 +41,11 @@ class Game:
         self.game_active = False
         self.game_started_at = 0
         self.first_ball_of_turn = False
-        self.waiting_for_plunger_release = False
+        self.waiting_for_ball_launched = False
         self.event_bus.subscribe(GAME_LAUNCH_REQUESTED,self.on_game_launch_requested)
         self.event_bus.subscribe(START_REQUESTED,self.on_start_requested)
         self.event_bus.subscribe(BALL_READY,self.on_ball_ready)
+        self.event_bus.subscribe(BALL_LAUNCHED,self.on_ball_launched)
         self.event_bus.subscribe(PRE_TURN,self.on_pre_turn)
         self.event_bus.subscribe(SWITCH_RELEASED,self.on_switch_released)
         self.boot()
@@ -178,30 +180,41 @@ class Game:
         if not self.first_ball_of_turn:
             return
         self.first_ball_of_turn = False
+        self.waiting_for_ball_launched = True
+        print("WAITING FOR BALL LAUNCHED")
         if self.settings.get("MACHINE_HAS_LAUNCH_SEQUENCE"):
             self.event_bus.publish(
                 LAUNCH_SEQUENCE,
                 {})
-            return
-        self.waiting_for_plunger_release = True
-        print("WAITING FOR PLUNGER RELEASE")
 
     def on_pre_turn(
         self,
         _event_type,
         _data):
         self.first_ball_of_turn = True
-        self.waiting_for_plunger_release = False
+        self.waiting_for_ball_launched = False
 
     def on_switch_released(
         self,
         _event_type,
         data):
-        if not self.waiting_for_plunger_release:
+        if not self.waiting_for_ball_launched:
             return
         if data["switch"] != "PLUNGER":
             return
-        self.waiting_for_plunger_release = False
+        self.event_bus.publish(
+            BALL_LAUNCHED,
+            {})
+
+    def on_ball_launched(
+        self,
+        _event_type,
+        _data):
+        if not self.waiting_for_ball_launched:
+            print("BALL LAUNCHED IGNORED: NOT WAITING FOR A BALL")
+            return
+        self.waiting_for_ball_launched = False
+        print("BALL STARTED")
         self.event_bus.publish(
             BALL_STARTED,
             {})

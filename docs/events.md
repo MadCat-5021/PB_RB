@@ -103,6 +103,17 @@ The InputScanner does not determine the meaning of the hold action.
 
 Interpretation of held events is the responsibility of the RuleEngine.
 
+## Gameplay Events
+
+### BALL_LAUNCHED
+
+Signals that the ball has left the plunger. During development, the console
+accepts `LAUNCHED` as a manual signal. A `PLUNGER` switch release and launch
+sequence completion also publish this event.
+
+The Game accepts this event only while waiting for the current ball to launch,
+then publishes `BALL_STARTED`.
+
 ## System Events
 
 ### SYSTEM_START
