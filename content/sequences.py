@@ -2,16 +2,16 @@
 
 SEQUENCES = [
     {
-         "name": "ORBIT_SHORT",
-         "display_name": "Speedtrap",
-         "score": 500,
-         "targets": ["ORBIT_LEFT_FRONT", "ORBIT_LEFT_REAR"]
-    },
-    {
          "name": "ORBIT_LONG",
          "display_name": "PARABOLICA",
          "score": 1750,
          "targets": ["ORBIT_LEFT_FRONT", "ORBIT_LEFT_REAR", "ORBIT_RIGHT_REAR"]
+    },
+    {
+         "name": "ORBIT_SHORT",
+         "display_name": "Speedtrap",
+         "score": 500,
+         "targets": ["ORBIT_LEFT_FRONT", "ORBIT_LEFT_REAR"]
     },
     {
         "name": "RAMP_LEFT",

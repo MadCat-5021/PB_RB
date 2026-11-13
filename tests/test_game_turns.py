@@ -3,9 +3,17 @@ from contextlib import redirect_stdout
 from io import StringIO
 
 from core.event_bus import EventBus
-from core.events import GAME_ENDED, PRE_TURN, TURN_ENDED
+from core.events import (
+    BALL_DRAINED,
+    BALL_SUPPLY,
+    GAME_ENDED,
+    PRE_TURN,
+    SWITCH_PRESSED,
+    TURN_ENDED
+)
 from gameplay.game import Game
 from gameplay.player_manager import PlayerManager
+from gameplay.score_manager import ScoreManager
 
 
 class Settings:
@@ -18,6 +26,45 @@ class Settings:
 
 
 class GameTurnTests(unittest.TestCase):
+    def test_drain_does_not_score_for_next_player_during_switch_dispatch(self):
+        settings = Settings()
+        player_manager = PlayerManager(settings)
+        player_manager.start_game()
+        player_manager.add_player()
+
+        game = Game.__new__(Game)
+        game.event_bus = EventBus()
+        game.player_manager = player_manager
+        game.game_active = True
+        game.ball_launched = True
+        game.initial_ball_pending = False
+        game.waiting_for_ball_launched = False
+        game.extra_ball_awarded = False
+        game.shoot_again_manager = type(
+            "ShootAgainManager",
+            (),
+            {"is_active": lambda _self: False}
+        )()
+        game.event_bus.subscribe(SWITCH_PRESSED, game.on_switch_pressed)
+        game.event_bus.subscribe(BALL_DRAINED, game.on_ball_drained)
+        game.event_bus.subscribe(TURN_ENDED, game.on_turn_ended)
+        ScoreManager(game.event_bus, player_manager)
+
+        supplies = []
+        game.event_bus.subscribe(
+            BALL_SUPPLY,
+            lambda *_: supplies.append(True))
+
+        with redirect_stdout(StringIO()):
+            game.event_bus.publish(
+                SWITCH_PRESSED,
+                {"switch": "DRAIN"})
+
+        self.assertEqual(player_manager.current_player.number, 2)
+        self.assertEqual(player_manager.get_score(1), 0)
+        self.assertEqual(player_manager.get_score(2), 0)
+        self.assertEqual(supplies, [True])
+
     def test_pre_turn_prints_active_player_status(self):
         manager = PlayerManager(Settings())
         manager.start_game()

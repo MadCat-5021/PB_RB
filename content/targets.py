@@ -4,7 +4,7 @@ TARGETS = [
     {
         "name": "DRAIN",
         "display_name": "Well that's not going anywhere",
-        "score": 50,
+        "score": 0,
         "combo_enabled": False,
         "combo_window": 0,
         "audio": None,
