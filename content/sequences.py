@@ -9,9 +9,9 @@ SEQUENCES = [
     },
     {
          "name": "ORBIT_SHORT",
-         "display_name": "Speedtrap",
+         "display_name": "Luyendijk Curve",
          "score": 500,
-         "targets": ["ORBIT_LEFT_FRONT", "ORBIT_LEFT_REAR"]
+         "targets": ["ORBIT_LEFT_REAR"]
     },
     {
         "name": "RAMP_LEFT",
