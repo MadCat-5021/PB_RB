@@ -113,7 +113,7 @@ Multiplier = 1
 
 ### MISSION_1
 Requirements:
-- LEFT_ORBIT_SEQUENCE
+- ORBIT_LONG
 
 Completion:
 - MISSION_COMPLETED
