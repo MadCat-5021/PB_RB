@@ -22,12 +22,32 @@ MISSION_ACTIVE
 Er is altijd exact één actieve missie.
 
 ## Eigenaarschap
+
 Een mission bezit:
-- Groups
-- Sequences
+- Requirements die verwijzen naar Targets, Groups en Sequences
 - Mission Rules
-Missions verwijzen naar bestaande Groups en Sequences.
-Missions bezitten geen switches rechtstreeks.
+Missions verwijzen naar bestaande content; targets, groups en sequences blijven
+zelf eigenaar van hun switches.
+
+## Content
+
+`content/missions.py` bevat de lijst `MISSIONS`. De volgorde in deze lijst is de
+vaste speelvolgorde. Elke missie heeft:
+
+- `name`: unieke interne ID, bijvoorbeeld `MISSION_1`
+- `working_title`: tijdelijke/tentatieve missienaam
+- `description`: omschrijving voor ontwerp en later eventueel de speler
+- `requirements`: lijsten met `targets`, `groups` en `sequences`; alle opgegeven
+  requirements moeten voltooid zijn
+- `score`: scorebonus voor het voltooien van de missie
+- `challenges`: optionele IDs van missiegebonden challenges; challenges zijn
+  niet vereist voor missievoltooiing
+- `assets`: optionele `image`, `sound` en `text` voor `start`, `during` en
+  `completion`. `during` is een lijst voor cues die later aan voortgangsmomenten
+  gekoppeld kunnen worden. Gebruik `None` als er nog geen asset is ingesteld.
+
+De score is een missiebonus; `0` betekent dat een missie geen scorebonus geeft.
+De waarden in `MISSIONS` zijn content en kunnen per missie worden aangepast.
 
 ## Activatie
 Bij het starten van een spel wordt Mission 1 geactiveerd.
