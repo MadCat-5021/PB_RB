@@ -56,11 +56,15 @@ Generate:
 
 ## Progressie
 Mission voortgang wordt bijgewerkt door:
+- SWITCH_PRESSED voor een vereist target
 - GROUP_COMPLETED
 - SEQUENCE_COMPLETED
 - Mission specifieke events
 Generate:
 - MISSION_PROGRESS_UPDATED
+
+De requirements in `content/missions.py` worden allemaal bijgehouden; pas
+wanneer ze allemaal voltooid zijn, slaagt de missie.
 
 ## Voltooiing
 Wanneer alle mission requirements zijn behaald:

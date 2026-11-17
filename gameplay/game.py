@@ -29,6 +29,7 @@ from gameplay.player_manager import PlayerManager
 from gameplay.shoot_again_manager import ShootAgainManager
 from gameplay.target_manager import TargetManager
 from gameplay.score_manager import ScoreManager
+from gameplay.mission_manager import MissionManager
 from gameplay.groups import Group
 from gameplay.sequences import Sequence
 from hardware.coil_manager import CoilManager
@@ -80,6 +81,10 @@ class Game:
         self.score_manager = ScoreManager(
             self.event_bus,
             self.player_manager)
+        self.mission_manager = MissionManager(
+            self.event_bus,
+            self.player_manager,
+            self.score_manager)
         self.input_manager = InputManager(
             self.event_bus)
         self.coil_manager = CoilManager()
@@ -174,6 +179,8 @@ class Game:
                 return
             self.player_manager.start_game()
             self.game_active = True
+            for player in self.player_manager.players:
+                self.mission_manager.start_player_mission(player)
             self.ball_launched = False
             self.initial_ball_pending = True
             self.extra_ball_awarded = False
@@ -208,6 +215,8 @@ class Game:
         if not self.player_manager.add_player():
             print("ADD PLAYER DENIED: MAX PLAYERS")
             return
+        self.mission_manager.start_player_mission(
+            self.player_manager.players[-1])
         print(f"PLAYER {self.player_manager.player_count} ADDED")
 
     def run(self):
@@ -275,6 +284,15 @@ class Game:
             f"MISSIONS: {len(player.completed_missions)} completed | "
             f"CHALLENGES: {len(player.completed_challenges)} completed"
         )
+        mission = self.mission_manager.get_mission(player.active_mission)
+        if mission is None:
+            print("MISSION: All missions completed")
+        else:
+            print(
+                f"MISSION: {mission['name']} - "
+                f"{mission['working_title']}"
+            )
+            print(f"DESCRIPTION: {mission['description']}")
 
     def on_switch_released(
         self,

@@ -1,5 +1,7 @@
 from dataclasses import asdict, dataclass, field
 
+from content.missions import MISSIONS
+
 
 @dataclass
 class PlayerProgress:
@@ -8,6 +10,8 @@ class PlayerProgress:
     bonus: int = 0
     balls_played: int = 0
     mission_progress: dict[str, int] = field(default_factory=dict)
+    mission_requirements: dict[str, list[str]] = field(default_factory=dict)
+    active_mission: str | None = None
     completed_missions: list[str] = field(default_factory=list)
     challenge_progress: dict[str, int] = field(default_factory=dict)
     completed_challenges: list[str] = field(default_factory=list)
@@ -39,7 +43,7 @@ class PlayerManager:
         balls_per_game = self.settings.get("BALLS_PER_GAME")
         if balls_per_game < 1:
             raise ValueError("BALLS_PER_GAME must be at least 1")
-        self.players = [PlayerProgress(number=1)]
+        self.players = [self._new_player(number=1)]
         self.current_player_index = 0
         self.current_ball = 1
         self.balls_per_game = balls_per_game
@@ -51,8 +55,15 @@ class PlayerManager:
         if self.player_count >= self.settings.get("MAX_PLAYERS"):
             return False
         self.players.append(
-            PlayerProgress(number=self.player_count + 1))
+            self._new_player(number=self.player_count + 1))
         return True
+
+    @staticmethod
+    def _new_player(number):
+        first_mission = MISSIONS[0]["name"] if MISSIONS else None
+        return PlayerProgress(
+            number=number,
+            active_mission=first_mission)
 
     def finish_turn(self):
         if not self.game_active or self.current_player is None:

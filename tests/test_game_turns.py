@@ -12,6 +12,7 @@ from core.events import (
     TURN_ENDED
 )
 from gameplay.game import Game
+from gameplay.mission_manager import MissionManager
 from gameplay.player_manager import PlayerManager
 from gameplay.score_manager import ScoreManager
 
@@ -74,7 +75,13 @@ class GameTurnTests(unittest.TestCase):
         manager.set_challenge_progress("CHALLENGE_A", 1)
 
         game = Game.__new__(Game)
+        game.event_bus = EventBus()
         game.player_manager = manager
+        game.score_manager = ScoreManager(game.event_bus, manager)
+        game.mission_manager = MissionManager(
+            game.event_bus,
+            manager,
+            game.score_manager)
         game.first_ball_of_turn = False
         game.first_ball_launched = True
         game.waiting_for_ball_launched = True
@@ -88,7 +95,9 @@ class GameTurnTests(unittest.TestCase):
             [
                 "PRE-TURN: PLAYER 1, BALL 1/3",
                 "SCORE: 1250 | BONUS: 500",
-                "MISSIONS: 1 completed | CHALLENGES: 0 completed"
+                "MISSIONS: 1 completed | CHALLENGES: 0 completed",
+                "MISSION: MISSION_1 - Parabolica",
+                "DESCRIPTION: Voltooi de ORBIT_LONG-sequence."
             ])
         self.assertTrue(game.first_ball_of_turn)
         self.assertFalse(game.first_ball_launched)
@@ -101,6 +110,13 @@ class GameTurnTests(unittest.TestCase):
         game.player_manager = PlayerManager(game.settings)
         game.player_manager.start_game()
         game.player_manager.add_player()
+        game.score_manager = ScoreManager(
+            game.event_bus,
+            game.player_manager)
+        game.mission_manager = MissionManager(
+            game.event_bus,
+            game.player_manager,
+            game.score_manager)
         game.ball_launched = True
         game.game_active = True
         game.initial_ball_pending = False

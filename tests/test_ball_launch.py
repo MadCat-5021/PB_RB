@@ -19,6 +19,7 @@ from core.events import (
 )
 from gameplay.game import Game
 from gameplay.launch_manager import LaunchManager
+from gameplay.mission_manager import MissionManager
 from gameplay.player_manager import PlayerManager
 from gameplay.score_manager import ScoreManager
 from input.input_manager import InputManager
@@ -45,6 +46,13 @@ class BallLaunchTests(unittest.TestCase):
         game.settings = Settings(has_launch_sequence)
         game.player_manager = PlayerManager(game.settings)
         game.player_manager.start_game()
+        game.score_manager = ScoreManager(
+            game.event_bus,
+            game.player_manager)
+        game.mission_manager = MissionManager(
+            game.event_bus,
+            game.player_manager,
+            game.score_manager)
         game.first_ball_of_turn = True
         game.first_ball_launched = False
         game.waiting_for_ball_launched = False
