@@ -7,7 +7,7 @@ CHALLENGES = [
         "trigger": {
             "type": "target_hit_multiple",
             "target": "POP_1",
-            "every": 50,
+            "every": 2,
             "chance": 1.0,
         },
         "requirements": {
