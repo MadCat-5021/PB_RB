@@ -2,7 +2,7 @@ CHALLENGES = [
     {
         "name": "PITSTOP_DASH",
         "display_name": "Pitstop Dash",
-        "description": "Tire's are shot, BOX BOX",
+        "description": "Tire's are at the cliff, BOX BOX",
         "missions": ["MISSION_1"],
         "trigger": {
             "type": "target_hit_multiple",
