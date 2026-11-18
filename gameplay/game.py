@@ -1,6 +1,7 @@
 # gameplay/game.py
 
 from time import monotonic, sleep, time
+from audio.audio_manager import AudioManager
 from core.event_bus import EventBus
 from core.events import (
     BALL_DRAINED,
@@ -74,6 +75,8 @@ class Game:
     def boot(self):
         print("BOOT: Validating content...")
         validate()
+        print("BOOT: Loading audio...")
+        self.audio_manager = AudioManager(self.settings)
         print("BOOT: Initializing managers...")
         self.control_manager = ControlManager(
             self.event_bus)
