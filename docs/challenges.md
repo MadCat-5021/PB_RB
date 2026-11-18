@@ -122,6 +122,10 @@ Voorbeelden:
   strings zijn voor één hit, of objecten zoals
   `{"name": "ORBIT_LEFT_REAR", "hits": 5}` voor herhaalde hits. `groups` en
   `sequences` verwijzen naar bestaande content-IDs
+- `target_chain`: optionele lijst targets die in de opgegeven volgorde geraakt
+  moeten worden. Andere hits tussendoor worden genegeerd en resetten de keten
+- `time_bonus_per_hit`: optionele seconden die aan de timer worden toegevoegd
+  voor iedere correcte hit in `target_chain`; vereist een targetketen met timer
 - `time_limit_seconds`: positieve tijdslimiet in seconden, of `None` voor geen
   timer
 - `score`: scorebonus bij succesvolle voltooiing
@@ -129,10 +133,14 @@ Voorbeelden:
   momenteel geen asset is ingesteld. De achtergrondtrack is bedoeld als
   tijdelijke override en hoort na afloop van de challenge te worden hersteld.
 
-De twee entries in `CHALLENGES` zijn voorbeelden met instelbare kansen,
-requirements, tijden en bonussen. Deze configuratie legt parameters vast; de
-challenge-runtime die triggers, timers en assets uitvoert is nog niet
-geïmplementeerd.
+De voorbeelden in `CHALLENGES` gebruiken instelbare kansen, requirements,
+tijden en bonussen. `Game` koppelt de `ChallengeManager`, die challenges start,
+voortgang bijhoudt en voltooiing of mislukking publiceert. De manager ondersteunt
+de triggers `random` en `target_hit_multiple`, en requirements voor targets,
+groups, sequences en targetketens. Timers lopen door tijdens de gameplay-loop;
+een hit na het verlopen van de timer telt niet meer mee. Een actieve challenge
+mislukt ook wanneer de bal afloopt. Assets worden nog niet door de runtime
+afgespeeld of gewisseld.
 
 ## Examples
 

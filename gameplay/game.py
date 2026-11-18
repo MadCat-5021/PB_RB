@@ -30,6 +30,7 @@ from gameplay.shoot_again_manager import ShootAgainManager
 from gameplay.target_manager import TargetManager
 from gameplay.score_manager import ScoreManager
 from gameplay.mission_manager import MissionManager
+from gameplay.challenge_manager import ChallengeManager
 from gameplay.groups import Group
 from gameplay.sequences import Sequence
 from hardware.coil_manager import CoilManager
@@ -85,6 +86,11 @@ class Game:
             self.event_bus,
             self.player_manager,
             self.score_manager)
+        self.challenge_manager = ChallengeManager(
+            self.event_bus,
+            self.player_manager,
+            self.score_manager,
+            self.target_manager)
         self.input_manager = InputManager(
             self.event_bus)
         self.coil_manager = CoilManager()
@@ -226,6 +232,7 @@ class Game:
             self.update_game_end()
             self.launch_manager.update()
             self.shoot_again_manager.update()
+            self.challenge_manager.update()
             self.check_game_start()
             self.ball_manager.check_supply()
             sleep(0.1)

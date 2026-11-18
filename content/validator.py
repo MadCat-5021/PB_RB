@@ -164,10 +164,22 @@ def validate_challenges(
                     f"Unknown target '{target_name}' "
                     f"in challenge chain '{challenge_name}'"
                 )
-        if target_chain and challenge["time_bonus_per_hit"] < 0:
+        if target_chain:
+            if time_limit is None:
+                raise ValueError(
+                    f"Challenge '{challenge_name}' target chain must have "
+                    "a time limit"
+                )
+            time_bonus = challenge.get("time_bonus_per_hit", 0)
+            if not isinstance(time_bonus, (int, float)) or time_bonus < 0:
+                raise ValueError(
+                    f"Challenge '{challenge_name}' time bonus "
+                    "must be a non-negative number"
+                )
+        elif "time_bonus_per_hit" in challenge:
             raise ValueError(
-                f"Challenge '{challenge_name}' time bonus "
-                "cannot be negative"
+                f"Challenge '{challenge_name}' time bonus requires "
+                "a target chain"
             )
         for requirement_type, requirement_values in requirements.items():
             if requirement_type not in known_requirements:

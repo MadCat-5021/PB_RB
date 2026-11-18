@@ -126,8 +126,10 @@ class PlayerManager:
     def set_challenge_progress(self, challenge, progress):
         self._require_active_player().challenge_progress[challenge] = progress
 
-    def complete_challenge(self, challenge):
-        player = self._require_active_player()
+    def complete_challenge(self, challenge, player_number=None):
+        player = self._get_player_or_active(player_number)
+        if player is None:
+            raise RuntimeError("No active player")
         if challenge not in player.completed_challenges:
             player.completed_challenges.append(challenge)
 
