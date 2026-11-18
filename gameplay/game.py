@@ -263,7 +263,7 @@ class Game:
         self,
         _event_type,
         _data):
-        print("BALL READY RECEIVED")
+        self.audio_manager.play_effect("assets/audio/ball_ready.wav")
         self.waiting_for_ball_launched = True
         print("WAITING FOR BALL LAUNCHED")
         if not self.first_ball_of_turn:
