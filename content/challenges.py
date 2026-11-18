@@ -46,4 +46,36 @@ CHALLENGES = [
             "background_track": None,
         },
     },
+    {
+        "name": "TRACK_ATTACK_CHAIN",
+        "display_name": "Safety car",
+        "description": (
+            "Follow the safety car, stay within 10 car lengths"
+        ),
+        "missions": [],
+        "trigger": {
+            "type": "random",
+            "check_on": "target_hit",
+            "chance": 0.05,
+        },
+        "requirements": {
+            "targets": [],
+            "groups": [],
+            "sequences": [],
+        },
+        "target_chain": [
+            "ORBIT_LEFT_FRONT",
+            "RAMP_LEFT",
+            "SWITCHBACK_ENTRY",
+            "ORBIT_RIGHT_REAR",
+        ],
+        "time_limit_seconds": 20,
+        "time_bonus_per_hit": 2.0,
+        "score": 50000,
+        "assets": {
+            "image": None,
+            "sound": None,
+            "background_track": None,
+        },
+    },
 ]

@@ -152,10 +152,22 @@ def validate_challenges(
             )
 
         requirements = challenge["requirements"]
-        if not any(requirements.values()):
+        target_chain = challenge.get("target_chain", [])
+        if not any(requirements.values()) and not target_chain:
             raise ValueError(
                 f"Challenge '{challenge_name}' must have at least one "
                 "requirement"
+            )
+        for target_name in target_chain:
+            if target_name not in target_names:
+                raise ValueError(
+                    f"Unknown target '{target_name}' "
+                    f"in challenge chain '{challenge_name}'"
+                )
+        if target_chain and challenge["time_bonus_per_hit"] < 0:
+            raise ValueError(
+                f"Challenge '{challenge_name}' time bonus "
+                "cannot be negative"
             )
         for requirement_type, requirement_values in requirements.items():
             if requirement_type not in known_requirements:
