@@ -106,8 +106,10 @@ class ChallengeManager:
             return
         now = monotonic() if now is None else now
         if now >= self.deadline:
-            challenge_name = self.active_challenge["name"]
+            challenge = self.active_challenge
+            challenge_name = challenge["name"]
             player_number = self.active_player_number
+            self._print_failure(challenge, "timer_expired")
             self._clear_active()
             self.event_bus.publish(
                 CHALLENGE_TIMER_EXPIRED,
@@ -158,6 +160,7 @@ class ChallengeManager:
         self.completed_sequences = set()
         self.target_chain_index = 0
         self.player_manager.set_challenge_progress(challenge["name"], 0)
+        self._print_challenge_start(challenge)
         payload = {
             "challenge": challenge["name"],
             "player": player.number,
@@ -166,6 +169,23 @@ class ChallengeManager:
         self.event_bus.publish(CHALLENGE_STARTED, payload)
         if self.deadline is not None:
             self.event_bus.publish(CHALLENGE_TIMER_STARTED, payload)
+
+    @classmethod
+    def _print_challenge_start(cls, challenge):
+        print(f"CHALLENGE STARTED: {challenge['display_name']}")
+        print(f"  {challenge['description']}")
+        print("  REQUIREMENTS:")
+        requirements = challenge["requirements"]
+        for requirement in requirements["targets"]:
+            target, hits = cls._target_requirement(requirement)
+            print(f"    Target: {target} ({hits} hit(s))")
+        for group in requirements["groups"]:
+            print(f"    Group: {group}")
+        for sequence in requirements["sequences"]:
+            print(f"    Sequence: {sequence}")
+        target_chain = challenge.get("target_chain", [])
+        if target_chain:
+            print(f"    Target chain: {' -> '.join(target_chain)}")
 
     def _record_target_hit(self, target_name):
         challenge = self.active_challenge
@@ -246,6 +266,10 @@ class ChallengeManager:
             player_number,
         )
         self.score_manager.add_score(challenge["score"])
+        print(
+            f"CHALLENGE COMPLETED: {challenge['display_name']} "
+            f"(+{challenge['score']} points)"
+        )
         self._clear_active()
         self.event_bus.publish(
             CHALLENGE_COMPLETED,
@@ -261,6 +285,7 @@ class ChallengeManager:
         if challenge is None:
             return
         player_number = self.active_player_number
+        self._print_failure(challenge, reason)
         self._clear_active()
         self.event_bus.publish(
             CHALLENGE_FAILED,
@@ -269,6 +294,17 @@ class ChallengeManager:
                 "player": player_number,
                 "reason": reason,
             },
+        )
+
+    @staticmethod
+    def _print_failure(challenge, reason):
+        reason_text = {
+            "timer_expired": "time expired",
+            "ball_drained": "ball drained",
+        }.get(reason, reason.replace("_", " "))
+        print(
+            f"CHALLENGE FAILED: {challenge['display_name']} "
+            f"({reason_text})"
         )
 
     def _clear_active(self):

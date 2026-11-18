@@ -1,5 +1,7 @@
 import copy
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from unittest.mock import patch
 
 from content.challenges import CHALLENGES
@@ -72,27 +74,49 @@ class ChallengeManagerTests(unittest.TestCase):
         )
         manager = self.make_manager(challenge)
 
-        with patch("gameplay.challenge_manager.random", return_value=0):
-            with patch("gameplay.challenge_manager.monotonic", return_value=100):
-                self.event_bus.publish(
-                    SWITCH_PRESSED,
-                    {"switch": "GENERAL_FILLER_1"},
-                )
-                self.event_bus.publish(
-                    SWITCH_PRESSED,
-                    {"switch": "RAMP_LEFT"},
-                )
-                self.assertEqual(manager.target_chain_index, 0)
-                self.assertEqual(self.events[CHALLENGE_PROGRESS_UPDATED], [])
-
-                for target in challenge["target_chain"]:
+        output = StringIO()
+        with redirect_stdout(output):
+            with patch("gameplay.challenge_manager.random", return_value=0):
+                with patch(
+                    "gameplay.challenge_manager.monotonic",
+                    return_value=100,
+                ):
                     self.event_bus.publish(
                         SWITCH_PRESSED,
-                        {"switch": target},
+                        {"switch": "GENERAL_FILLER_1"},
                     )
+                    self.event_bus.publish(
+                        SWITCH_PRESSED,
+                        {"switch": "RAMP_LEFT"},
+                    )
+                    self.assertEqual(manager.target_chain_index, 0)
+                    self.assertEqual(
+                        self.events[CHALLENGE_PROGRESS_UPDATED],
+                        [],
+                    )
+
+                    for target in challenge["target_chain"]:
+                        self.event_bus.publish(
+                            SWITCH_PRESSED,
+                            {"switch": target},
+                        )
 
         self.assertIsNone(manager.active_challenge)
         self.assertEqual(manager.deadline, None)
+        self.assertIn(
+            "CHALLENGE STARTED: Safety car",
+            output.getvalue(),
+        )
+        self.assertIn(
+            "Follow the safety car, stay within 10 car lengths",
+            output.getvalue(),
+        )
+        self.assertIn(
+            "Target chain: ORBIT_LEFT_FRONT -> RAMP_LEFT -> "
+            "SWITCHBACK_ENTRY -> ORBIT_RIGHT_REAR",
+            output.getvalue(),
+        )
+        self.assertIn("CHALLENGE COMPLETED: Safety car", output.getvalue())
         self.assertEqual(
             self.events[CHALLENGE_COMPLETED],
             [{
@@ -121,25 +145,36 @@ class ChallengeManagerTests(unittest.TestCase):
         challenge["requirements"]["sequences"] = ["SWITCHBACK"]
         manager = self.make_manager(challenge)
 
-        with patch("gameplay.challenge_manager.random", return_value=0):
-            with patch("gameplay.challenge_manager.monotonic", return_value=100):
-                self.event_bus.publish(
-                    SWITCH_PRESSED,
-                    {"switch": "GENERAL_FILLER_1"},
-                )
-                for _ in range(2):
+        output = StringIO()
+        with redirect_stdout(output):
+            with patch("gameplay.challenge_manager.random", return_value=0):
+                with patch(
+                    "gameplay.challenge_manager.monotonic",
+                    return_value=100,
+                ):
                     self.event_bus.publish(
                         SWITCH_PRESSED,
-                        {"switch": "POP_1"},
+                        {"switch": "GENERAL_FILLER_1"},
                     )
-                self.event_bus.publish(GROUP_COMPLETED, {"group": "TIRE"})
-                self.event_bus.publish(
-                    SEQUENCE_COMPLETED,
-                    {"sequence": "SWITCHBACK"},
-                )
+                    for _ in range(2):
+                        self.event_bus.publish(
+                            SWITCH_PRESSED,
+                            {"switch": "POP_1"},
+                        )
+                    self.event_bus.publish(
+                        GROUP_COMPLETED,
+                        {"group": "TIRE"},
+                    )
+                    self.event_bus.publish(
+                        SEQUENCE_COMPLETED,
+                        {"sequence": "SWITCHBACK"},
+                    )
 
         self.assertIsNone(manager.active_challenge)
         self.assertEqual(len(self.events[CHALLENGE_COMPLETED]), 1)
+        self.assertIn("Target: POP_1 (2 hit(s))", output.getvalue())
+        self.assertIn("Group: TIRE", output.getvalue())
+        self.assertIn("Sequence: SWITCHBACK", output.getvalue())
 
     def test_timer_expiry_fails_challenge(self):
         challenge = copy.deepcopy(CHALLENGES[0])
@@ -157,8 +192,14 @@ class ChallengeManagerTests(unittest.TestCase):
                     {"switch": "GENERAL_FILLER_1"},
                 )
 
-        manager.update(now=160)
+        output = StringIO()
+        with redirect_stdout(output):
+            manager.update(now=160)
 
+        self.assertIn(
+            "CHALLENGE FAILED: Pitstop Dash (time expired)",
+            output.getvalue(),
+        )
         self.assertEqual(
             self.events[CHALLENGE_TIMER_EXPIRED],
             [{"challenge": challenge["name"], "player": 1}],
