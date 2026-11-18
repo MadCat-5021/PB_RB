@@ -107,6 +107,33 @@ Voorbeelden:
 - Multiball Start
 - Special Award
 
+## Content
+
+`content/challenges.py` bevat `CHALLENGES`. Iedere challenge heeft:
+
+- `name`, `display_name` en `description`
+- `missions`: missie-IDs waarin de challenge beschikbaar is; een lege lijst
+  betekent dat de challenge in iedere missie beschikbaar is
+- `trigger`: de startconditie:
+  - `target_hit_multiple`: start bij iedere `every`-de hit op `target`;
+    `chance` is de kans (0.0-1.0) dat de challenge dan start
+  - `random`: trek bij ieder `target_hit` een kans (`chance`, 0.0-1.0)
+- `requirements`: doelen die allemaal voltooid moeten worden. `targets` mogen
+  strings zijn voor één hit, of objecten zoals
+  `{"name": "ORBIT_LEFT_REAR", "hits": 5}` voor herhaalde hits. `groups` en
+  `sequences` verwijzen naar bestaande content-IDs
+- `time_limit_seconds`: positieve tijdslimiet in seconden, of `None` voor geen
+  timer
+- `score`: scorebonus bij succesvolle voltooiing
+- `assets`: `image`, `sound` en `background_track`; `None` betekent dat er
+  momenteel geen asset is ingesteld. De achtergrondtrack is bedoeld als
+  tijdelijke override en hoort na afloop van de challenge te worden hersteld.
+
+De twee entries in `CHALLENGES` zijn voorbeelden met instelbare kansen,
+requirements, tijden en bonussen. Deze configuratie legt parameters vast; de
+challenge-runtime die triggers, timers en assets uitvoert is nog niet
+geïmplementeerd.
+
 ## Examples
 
 ### Quick Orbit
